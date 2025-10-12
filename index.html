@@ -251,19 +251,25 @@
             position: relative;
             z-index: 1;
         }
+        
+        .card h3 .icon {
+            color: inherit;
+            flex-shrink: 0;
+        }
 
         .icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: white;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-size: 1.4em;
-            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
             animation: iconBounce 2s ease-in-out infinite;
+            border: 3px solid #11998e;
+            color: initial;
         }
 
         @keyframes iconBounce {
@@ -565,13 +571,11 @@
             }
         }
 
-        /* Effetto parallax per le sezioni */
         .parallax-section {
             position: relative;
             transition: transform 0.3s ease-out;
         }
 
-        /* Animazioni aggiuntive per card speciali */
         .special-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -582,10 +586,10 @@
         }
 
         .special-card .icon {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Floating animation per elementi speciali */
         @keyframes float {
             0%, 100% {
                 transform: translateY(0px);
@@ -1119,7 +1123,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🧓</span> Alzheimer</h3>
+                    <h3><span class="icon">🧠</span> Alzheimer</h3>
                     <p><strong>Destinatari:</strong> Studenti interessati</p>
                     <p>Collaborazione con RSA Villa Cortese per il mese dell'Alzheimer (settembre). Incontro tra generazioni: attività di giardinaggio e floricoltura con residenti con patologia di Alzheimer.</p>
                 </div>
@@ -1182,7 +1186,7 @@
             
             <div class="grid">
                 <div class="card special-card">
-                    <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">🎓</span> Stage di Lingua Inglese in Irlanda</h3>
+                    <h3 style="color: white;"><span class="icon">🎓</span> Stage di Lingua Inglese in Irlanda</h3>
                     <p><strong>Destinazione:</strong> Dublino, Irlanda</p>
                     <p><strong>Durata:</strong> 7-8 giorni</p>
                     <p><strong>Periodo:</strong> Fine settembre / Prima settimana di ottobre</p>
@@ -1211,7 +1215,7 @@
             <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🇺🇸 Progetto UTAH</h3>
             
             <div class="card special-card">
-                <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">🎓</span> Scambio con Utah State University</h3>
+                <h3 style="color: white;"><span class="icon">🎓</span> Scambio con Utah State University</h3>
                 <p style="font-size: 1.1em; margin-bottom: 20px;">Scambio di buone pratiche tra docenti di scienze applicate italiani e americani con l'ateneo <strong>"Utah State University"</strong> di Logan, USA.</p>
                 
                 <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 20px 0;">
@@ -1258,14 +1262,14 @@
             
             <div class="grid">
                 <div class="card" style="background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);">
-                    <h3 style="color: #1565c0;"><span class="icon" style="background: #1565c0;">🎓</span> PET - Level B1</h3>
+                    <h3 style="color: #1565c0;"><span class="icon" style="background: #e3f2fd; border-color: #1565c0;">🎓</span> PET - Level B1</h3>
                     <p><strong>Preliminary English Test</strong></p>
                     <p>Livello: <strong>B1 Intermediate</strong></p>
                     <p>Certificazione linguistica riconosciuta a livello internazionale</p>
                 </div>
                 
                 <div class="card" style="background: linear-gradient(135deg, #e8f5e9 0%, #81c784 100%);">
-                    <h3 style="color: #2e7d32;"><span class="icon" style="background: #2e7d32;">🏆</span> FCE - Level B2</h3>
+                    <h3 style="color: #2e7d32;"><span class="icon" style="background: #e8f5e9; border-color: #2e7d32;">🏆</span> FCE - Level B2</h3>
                     <p><strong>First Certificate in English</strong></p>
                     <p>Livello: <strong>B2 Upper Intermediate</strong></p>
                     <p>Competenza avanzata nella lingua inglese</p>
@@ -1360,6 +1364,12 @@
             <div class="card">
                 <h3><span class="icon">📋</span> Piano Didattico Personalizzato (PDP)</h3>
                 <p>Per gli studenti con certificazione DSA il Consiglio di Classe redige il Piano Didattico Personalizzato.</p>
+            </div>
+            
+            <div style="text-align: center; margin: 40px 0;">
+                <a href="https://agrariomendel.edu.it/allegati/all/4977-pi-25-26.pdf" class="btn" target="_blank">
+                    <span>📄 Scarica il Piano per l'Inclusione (P.I.) 2025-2026</span>
+                </a>
             </div>
 
             <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">♿ Disabilità</h3>
@@ -1497,7 +1507,7 @@
             
             <div class="grid">
                 <div class="card" style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); color: white;">
-                    <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">📺</span> YouTube</h3>
+                    <h3 style="color: white;"><span class="icon">📺</span> YouTube</h3>
                     <p>Scopri i nostri video e le attività della scuola!</p>
                     <a href="https://agrariomendel.edu.it/comunicati/1619-canale-youtube-delliis-mendel" target="_blank" class="btn" style="background: white; color: #CC0000;">
                         <span>🎥 Visita il canale YouTube</span>
@@ -1505,7 +1515,7 @@
                 </div>
                 
                 <div class="card" style="background: linear-gradient(135deg, #E1306C 0%, #C13584 100%); color: white;">
-                    <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">📸</span> Instagram</h3>
+                    <h3 style="color: white;"><span class="icon">📸</span> Instagram</h3>
                     <p>Segui le nostre storie quotidiane!</p>
                     <a href="https://agrariomendel.edu.it/comunicati/740-canale-instagram-iis-mendel" target="_blank" class="btn" style="background: white; color: #C13584;">
                         <span>📷 Seguici su Instagram</span>
@@ -1542,7 +1552,6 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Aggiungi effetto parallax leggero allo scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const parallaxElements = document.querySelectorAll('.floating');
