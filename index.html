@@ -13,22 +13,167 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
             overflow: hidden;
-            animation: slideIn 0.6s ease-out;
+            animation: slideInUp 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        @keyframes slideIn {
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1%, transparent 1%);
+            background-size: 50px 50px;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .header p {
+            font-size: 1.5em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            animation: fadeInText 1s ease-in 0.3s both;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 0.95;
+                transform: translateY(0);
+            }
+        }
+
+        .tabs {
+            display: flex;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef, #f8f9fa);
+            border-bottom: 4px solid #11998e;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .tab {
+            padding: 22px 35px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #555;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-bottom: 5px solid transparent;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .tab:hover {
+            background: linear-gradient(to bottom, rgba(17, 153, 142, 0.1), transparent);
+            color: #11998e;
+            transform: translateY(-3px);
+        }
+
+        .tab:hover::before {
+            width: 100%;
+        }
+
+        .tab.active {
+            color: #11998e;
+            background: linear-gradient(to bottom, rgba(17, 153, 142, 0.15), rgba(56, 239, 125, 0.05));
+            border-bottom-color: transparent;
+        }
+
+        .tab.active::before {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 60px 50px;
+            animation: contentSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes contentSlideIn {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -39,260 +184,317 @@
             }
         }
 
-        .header {
-            background: linear-gradient(135deg, #6B8E23 0%, #556B2F 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
+        .section-title {
+            font-size: 2.8em;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            border-left: 8px solid #38ef7d;
+            padding-left: 25px;
+            animation: titleSlideIn 0.6s ease-out;
+        }
+
+        @keyframes titleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid transparent;
             position: relative;
             overflow: hidden;
         }
 
-        .header::before {
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat bottom;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .header p {
-            font-size: 1.3em;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
-        }
-
-        .tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 3px solid #6B8E23;
-            overflow-x: auto;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .tab {
-            padding: 20px 30px;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #555;
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .tab:hover {
-            background: #e9ecef;
-            color: #6B8E23;
-        }
-
-        .tab.active {
-            color: #6B8E23;
-            background: white;
-            border-bottom-color: #6B8E23;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 50px;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            font-size: 2.5em;
-            color: #6B8E23;
-            margin-bottom: 30px;
-            border-left: 6px solid #8FBC8F;
-            padding-left: 20px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1), rgba(56, 239, 125, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(17, 153, 142, 0.3);
+            border-color: #38ef7d;
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card h3 {
-            color: #556B2F;
-            font-size: 1.8em;
-            margin-bottom: 15px;
+            color: #11998e;
+            font-size: 2em;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         .icon {
-            width: 40px;
-            height: 40px;
-            background: #6B8E23;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2em;
+            font-size: 1.4em;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
         }
 
         .highlight {
-            background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: highlightRotate 10s linear infinite;
+        }
+
+        @keyframes highlightRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .highlight h4 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight p {
+            position: relative;
+            z-index: 1;
         }
 
         .timeline {
             position: relative;
-            padding-left: 40px;
-            border-left: 3px solid #6B8E23;
+            padding-left: 50px;
+            border-left: 4px solid #11998e;
         }
 
         .timeline-item {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             position: relative;
+            animation: timelineSlideIn 0.6s ease-out;
+        }
+
+        @keyframes timelineSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -46px;
+            left: -54px;
             top: 0;
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background: #6B8E23;
-            border: 4px solid white;
-            box-shadow: 0 0 0 3px #6B8E23;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            border: 5px solid white;
+            box-shadow: 0 0 0 4px #11998e, 0 4px 15px rgba(17, 153, 142, 0.5);
+            animation: timelinePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes timelinePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         .timeline-year {
-            font-size: 1.8em;
+            font-size: 2em;
             font-weight: bold;
-            color: #6B8E23;
-            margin-bottom: 8px;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
         }
 
         .stats {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
+            gap: 25px;
+            margin: 40px 0;
         }
 
         .stat {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             flex: 1;
-            min-width: 150px;
+            min-width: 180px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(17, 153, 142, 0.3);
         }
 
         .stat-number {
-            font-size: 3em;
+            font-size: 3.5em;
             font-weight: bold;
-            color: #6B8E23;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: block;
+            animation: numberCount 1s ease-out;
+        }
+
+        @keyframes numberCount {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .stat-label {
             color: #666;
-            font-size: 1.1em;
-            margin-top: 8px;
+            font-size: 1.15em;
+            margin-top: 10px;
+            font-weight: 600;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
 
         .contact-item {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 5px solid #6B8E23;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 18px;
+            border-left: 6px solid #11998e;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(17, 153, 142, 0.3);
+            border-left-color: #38ef7d;
         }
 
         .contact-item strong {
-            color: #6B8E23;
+            color: #11998e;
             display: block;
-            margin-bottom: 8px;
-            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-size: 1.2em;
         }
 
         .btn {
-            background: #6B8E23;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
-            padding: 15px 35px;
+            padding: 18px 40px;
             border: none;
-            border-radius: 30px;
-            font-size: 1.1em;
+            border-radius: 50px;
+            font-size: 1.15em;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             display: inline-block;
             text-decoration: none;
-            margin: 10px 5px;
+            margin: 12px 8px;
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn:hover {
-            background: #556B2F;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(17, 153, 142, 0.5);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
         }
 
         ul {
@@ -301,48 +503,100 @@
         }
 
         ul li {
-            padding: 10px 0;
-            padding-left: 30px;
+            padding: 12px 0;
+            padding-left: 40px;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         ul li::before {
             content: '🌱';
             position: absolute;
             left: 0;
+            font-size: 1.5em;
+            animation: leafSway 2s ease-in-out infinite;
+        }
+
+        @keyframes leafSway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        ul li:hover {
+            padding-left: 45px;
+            color: #11998e;
         }
 
         .footer-credit {
             text-align: center;
-            margin-top: 60px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-top: 2px solid #6B8E23;
-            border-radius: 8px;
+            margin-top: 70px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 3px solid #11998e;
+            border-radius: 15px;
         }
 
         .footer-credit p {
             color: #666;
-            font-size: 0.95em;
+            font-size: 1em;
             margin: 0;
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
             
             .tab-content {
-                padding: 25px;
+                padding: 30px 25px;
             }
             
             .section-title {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             
             .tabs {
                 flex-wrap: wrap;
             }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Effetto parallax per le sezioni */
+        .parallax-section {
+            position: relative;
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Animazioni aggiuntive per card speciali */
+        .special-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .special-card h3 {
+            color: white;
+        }
+
+        .special-card .icon {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Floating animation per elementi speciali */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
@@ -370,7 +624,7 @@
         <div id="home" class="tab-content active">
             <h2 class="section-title">Benvenuti al Mendel!</h2>
             
-            <div class="highlight">
+            <div class="highlight floating">
                 <h4>La nostra storia</h4>
                 <p>Dal 1935 formiamo professionisti dell'agricoltura, dell'ambiente e del territorio. Intitolato nel 1990 a Gregorio Mendel, padre della genetica, il nostro istituto unisce innovazione, ricerca e rispetto della tradizione rurale.</p>
             </div>
@@ -394,7 +648,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 40px;">🎯 La nostra offerta formativa</h3>
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🎯 La nostra offerta formativa</h3>
             <div class="grid">
                 <div class="card">
                     <h3><span class="icon">📘</span> Istituto Tecnico</h3>
@@ -434,9 +688,9 @@
         <div id="tecnico" class="tab-content">
             <h2 class="section-title">📚 Istituto Tecnico Agrario</h2>
             
-            <div style="text-align: center; margin-bottom: 30px;">
-                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/112-istituto-tecnico" class="btn" target="_blank" style="font-size: 1.2em;">
-                    🌐 Visita la pagina ufficiale dell'Istituto Tecnico
+            <div style="text-align: center; margin-bottom: 40px;">
+                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/112-istituto-tecnico" class="btn" target="_blank">
+                    <span>🌐 Visita la pagina ufficiale dell'Istituto Tecnico</span>
                 </a>
             </div>
             
@@ -445,7 +699,7 @@
                 <p><strong>Durata:</strong> 5 anni | <strong>Diploma:</strong> Perito Agrario | <strong>Orario:</strong> 33 ore (1° anno), 32 ore (anni successivi)</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🎓 Articolazioni del Secondo Biennio e Quinto Anno</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🎓 Articolazioni del Secondo Biennio e Quinto Anno</h3>
             
             <div class="grid">
                 <div class="card">
@@ -471,7 +725,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">💼 Sbocchi professionali</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">💼 Sbocchi professionali</h3>
             <div class="card">
                 <ul style="columns: 2; column-gap: 30px;">
                     <li>Dirigere e gestire imprese agricole</li>
@@ -485,13 +739,13 @@
                 </ul>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🎓 Corsi di Laurea consigliati</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🎓 Corsi di Laurea consigliati</h3>
             <div class="grid">
-                <div class="card" style="background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
-                    <p>• Scienze e Tecnologie Agrarie<br>• Scienze e Tecnologie Alimentari<br>• Chimica<br>• Biologia</p>
+                <div class="card special-card">
+                    <p style="line-height: 1.8;">• Scienze e Tecnologie Agrarie<br>• Scienze e Tecnologie Alimentari<br>• Chimica<br>• Biologia</p>
                 </div>
-                <div class="card" style="background: linear-gradient(135deg, #556B2F 0%, #6B8E23 100%); color: white;">
-                    <p>• Scienze Ambientali<br>• Produzioni Animali<br>• Veterinaria<br>• Ingegneria Ambientale</p>
+                <div class="card special-card">
+                    <p style="line-height: 1.8;">• Scienze Ambientali<br>• Produzioni Animali<br>• Veterinaria<br>• Ingegneria Ambientale</p>
                 </div>
             </div>
 
@@ -504,9 +758,9 @@
         <div id="professionale" class="tab-content">
             <h2 class="section-title">👷 Professionale Statale e Istruzione e Formazione Professionale (IEFP)</h2>
             
-            <div style="text-align: center; margin-bottom: 30px;">
-                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/113-istituto-professionale" class="btn" target="_blank" style="font-size: 1.2em;">
-                    🌐 Visita la pagina ufficiale dell'Istituto Professionale
+            <div style="text-align: center; margin-bottom: 40px;">
+                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/113-istituto-professionale" class="btn" target="_blank">
+                    <span>🌐 Visita la pagina ufficiale dell'Istituto Professionale</span>
                 </a>
             </div>
             
@@ -515,7 +769,7 @@
                 <p><strong>Triennio:</strong> Qualifica di Operatore Agricolo (470 ore stage) | <strong>4° Anno:</strong> Diploma Tecnico Agricolo (210 ore stage)</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">📋 Struttura del percorso</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">📋 Struttura del percorso</h3>
             
             <div class="grid">
                 <div class="card">
@@ -535,8 +789,8 @@
                 </div>
             </div>
 
-            <div class="card" style="background: #f0f8ff;">
-                <h3 style="color: #556B2F;">✨ Caratteristiche distintive</h3>
+            <div class="card" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+                <h3 style="color: #1565c0;">✨ Caratteristiche distintive</h3>
                 <ul>
                     <li><strong>Apprendimento pratico:</strong> Contesti laboratoriali e pratici dal primo anno</li>
                     <li><strong>Stage in azienda:</strong> Dal secondo anno (dopo 15 anni di età) presso aziende convenzionate</li>
@@ -545,7 +799,7 @@
                 </ul>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">💼 Sbocchi professionali - Operatore Agricolo</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">💼 Sbocchi professionali - Operatore Agricolo</h3>
             <div class="card">
                 <ul style="columns: 2; column-gap: 30px;">
                     <li>Operario qualificato in aziende florovivaistiche</li>
@@ -557,7 +811,7 @@
                 </ul>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">💼 Sbocchi professionali - Tecnico Agricolo IV anno</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">💼 Sbocchi professionali - Tecnico Agricolo IV anno</h3>
             <div class="card">
                 <ul>
                     <li>Tecnico agricolo presso aziende agricole, vivai, caseifici, cantine</li>
@@ -576,9 +830,9 @@
         <div id="ida" class="tab-content">
             <h2 class="section-title">🌙 Corsi Serali - IDA (Istruzione degli Adulti)</h2>
             
-            <div style="text-align: center; margin-bottom: 30px;">
-                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/114-corsi-serali-ida-istruzione-degli-adulti" class="btn" target="_blank" style="font-size: 1.2em;">
-                    🌐 Visita la pagina ufficiale dei Corsi Serali IDA
+            <div style="text-align: center; margin-bottom: 40px;">
+                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/114-corsi-serali-ida-istruzione-degli-adulti" class="btn" target="_blank">
+                    <span>🌐 Visita la pagina ufficiale dei Corsi Serali IDA</span>
                 </a>
             </div>
             
@@ -587,7 +841,7 @@
                 <p><strong>Orario:</strong> Serale (22 ore settimanali) | <strong>Iscrizioni:</strong> Gennaio/Febbraio - 15 Ottobre</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">📚 Offerta formativa IDA</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">📚 Offerta formativa IDA</h3>
             
             <div class="grid">
                 <div class="card">
@@ -607,8 +861,8 @@
                 </div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                <h3 style="color: #556B2F;">👥 A chi si rivolge</h3>
+            <div class="card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);">
+                <h3 style="color: #e65100;">👥 A chi si rivolge</h3>
                 <ul>
                     <li>Studenti maggiorenni (o in procinto di diventarlo)</li>
                     <li>Lavoratori che vogliono conseguire il diploma</li>
@@ -652,7 +906,7 @@
                 <p>La Formazione Scuola-Lavoro è un'esperienza formativa che unisce sapere e saper fare, orienta le aspirazioni degli studenti e apre possibilità di sbocchi lavorativi.</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">📊 Monte ore per indirizzo</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">📊 Monte ore per indirizzo</h3>
             
             <div class="grid">
                 <div class="card">
@@ -675,40 +929,40 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🏢 Le nostre aziende convenzionate</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🏢 Le nostre aziende convenzionate</h3>
             
-            <div class="card" style="background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
+            <div class="card special-card floating">
                 <h3 style="color: white;">🎉 Oltre 300 aziende convenzionate!</h3>
             </div>
 
             <div class="grid">
-                <div class="card">
-                    <h3>30%</h3>
-                    <p>Aziende agricole zootecniche</p>
+                <div class="stat">
+                    <span class="stat-number">30%</span>
+                    <span class="stat-label">Aziende agricole zootecniche</span>
                 </div>
-                <div class="card">
-                    <h3>30%</h3>
-                    <p>Servizi e manutenzione del verde</p>
+                <div class="stat">
+                    <span class="stat-number">30%</span>
+                    <span class="stat-label">Servizi e manutenzione del verde</span>
                 </div>
-                <div class="card">
-                    <h3>20%</h3>
-                    <p>Florovivaismo</p>
+                <div class="stat">
+                    <span class="stat-number">20%</span>
+                    <span class="stat-label">Florovivaismo</span>
                 </div>
-                <div class="card">
-                    <h3>10%</h3>
-                    <p>Aziende agricole</p>
+                <div class="stat">
+                    <span class="stat-number">10%</span>
+                    <span class="stat-label">Aziende agricole</span>
                 </div>
-                <div class="card">
-                    <h3>5%</h3>
-                    <p>Ambulatori veterinari</p>
+                <div class="stat">
+                    <span class="stat-number">5%</span>
+                    <span class="stat-label">Ambulatori veterinari</span>
                 </div>
-                <div class="card">
-                    <h3>5%</h3>
-                    <p>Negozi e farmacie</p>
+                <div class="stat">
+                    <span class="stat-number">5%</span>
+                    <span class="stat-label">Negozi e farmacie</span>
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🌟 Attività presso l'Istituto Mendel</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🌟 Attività presso l'Istituto Mendel</h3>
             
             <div class="card">
                 <ul>
@@ -732,12 +986,12 @@
         <div id="progetti" class="tab-content">
             <h2 class="section-title">🎨 Progetti d'Istituto A.S. 2024-2025</h2>
             
-            <div class="highlight">
+            <div class="highlight floating">
                 <h4>🌟 Innovazione e Tradizione</h4>
                 <p>L'Istituto Mendel promuove numerosi progetti didattici ed extracurricolari per arricchire l'offerta formativa e sviluppare competenze trasversali negli studenti. I progetti sono elencati per area tematica.</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">👋 Accoglienza e Orientamento</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">👋 Accoglienza e Orientamento</h3>
             
             <div class="grid">
                 <div class="card">
@@ -753,7 +1007,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🌱 Progetti Ambientali e Agricoli</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🌱 Progetti Ambientali e Agricoli</h3>
             
             <div class="grid">
                 <div class="card">
@@ -787,7 +1041,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🤝 Progetti per l'Inclusione</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🤝 Progetti per l'Inclusione</h3>
             
             <div class="grid">
                 <div class="card">
@@ -815,7 +1069,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">⚽ Sport e Benessere</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">⚽ Sport e Benessere</h3>
             
             <div class="grid">
                 <div class="card">
@@ -849,7 +1103,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🎓 Educazione alla Salute e Cittadinanza</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🎓 Educazione alla Salute e Cittadinanza</h3>
             
             <div class="grid">
                 <div class="card">
@@ -877,7 +1131,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🎭 Cultura e Arte</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🎭 Cultura e Arte</h3>
             
             <div class="grid">
                 <div class="card">
@@ -919,15 +1173,15 @@
         <div id="internazionalizzazione" class="tab-content">
             <h2 class="section-title">🌍 Internazionalizzazione</h2>
             
-            <div class="highlight">
+            <div class="highlight floating">
                 <h4>✈️ Il Mendel aperto al mondo</h4>
                 <p>L'internazionalizzazione è un pilastro fondamentale della nostra offerta formativa. Attraverso stage linguistici, scambi internazionali e certificazioni, apriamo gli orizzonti dei nostri studenti verso una dimensione europea e globale.</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🇮🇪 Stage Linguistici all'Estero</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🇮🇪 Stage Linguistici all'Estero</h3>
             
             <div class="grid">
-                <div class="card" style="background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%); color: white;">
+                <div class="card special-card">
                     <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">🎓</span> Stage di Lingua Inglese in Irlanda</h3>
                     <p><strong>Destinazione:</strong> Dublino, Irlanda</p>
                     <p><strong>Durata:</strong> 7-8 giorni</p>
@@ -954,9 +1208,9 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 40px;">🇺🇸 Progetto UTAH</h3>
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🇺🇸 Progetto UTAH</h3>
             
-            <div class="card" style="background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%); color: white;">
+            <div class="card special-card">
                 <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">🎓</span> Scambio con Utah State University</h3>
                 <p style="font-size: 1.1em; margin-bottom: 20px;">Scambio di buone pratiche tra docenti di scienze applicate italiani e americani con l'ateneo <strong>"Utah State University"</strong> di Logan, USA.</p>
                 
@@ -1000,17 +1254,17 @@
                 • <strong>Promuovere apertura culturale</strong></p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 40px;">📜 Certificazioni Linguistiche</h3>
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">📜 Certificazioni Linguistiche</h3>
             
             <div class="grid">
-                <div class="card" style="background: #e3f2fd;">
+                <div class="card" style="background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);">
                     <h3 style="color: #1565c0;"><span class="icon" style="background: #1565c0;">🎓</span> PET - Level B1</h3>
                     <p><strong>Preliminary English Test</strong></p>
                     <p>Livello: <strong>B1 Intermediate</strong></p>
                     <p>Certificazione linguistica riconosciuta a livello internazionale</p>
                 </div>
                 
-                <div class="card" style="background: #e8f5e9;">
+                <div class="card" style="background: linear-gradient(135deg, #e8f5e9 0%, #81c784 100%);">
                     <h3 style="color: #2e7d32;"><span class="icon" style="background: #2e7d32;">🏆</span> FCE - Level B2</h3>
                     <p><strong>First Certificate in English</strong></p>
                     <p>Livello: <strong>B2 Upper Intermediate</strong></p>
@@ -1031,7 +1285,7 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 40px;">🗺️ Uscite Didattiche e Viaggi d'Istruzione</h3>
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🗺️ Uscite Didattiche e Viaggi d'Istruzione</h3>
             
             <div class="card">
                 <h3><span class="icon">🚌</span> Finalità ed Esperienze Didattiche</h3>
@@ -1096,145 +1350,30 @@
         <div id="inclusione" class="tab-content">
             <h2 class="section-title">🤝 Inclusione Scolastica</h2>
             
-            <div class="highlight">
+            <div class="highlight floating">
                 <h4>💚 Azioni della scuola per l'inclusione</h4>
-                <p>L'IIS Mendel si impegna concretamente per garantire l'inclusione di tutti gli studenti attraverso percorsi personalizzati e supporto specializzato per studenti con Disturbi Specifici dell'Apprendimento (DSA), Bisogni Educativi Speciali (BES) e Disabilità (DVA).</p>
+                <p>L'IIS Mendel si impegna concretamente per garantire l'inclusione di tutti gli studenti.</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">📚 Disturbi Specifici dell'Apprendimento e Bisogni Educativi Speciali</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">📚 DSA e BES</h3>
             
             <div class="card">
                 <h3><span class="icon">📋</span> Piano Didattico Personalizzato (PDP)</h3>
-                <p>Nel rispetto della normativa, per gli studenti con certificazione DSA il <strong>Consiglio di Classe redige il Piano Didattico Personalizzato</strong>, dopo un periodo di osservazione, e lo condivide con la famiglia e con lo studente.</p>
-                <p style="margin-top: 10px;">Si segue la medesima procedura per gli studenti BES, <strong>anche in mancanza di certificazione</strong>.</p>
+                <p>Per gli studenti con certificazione DSA il Consiglio di Classe redige il Piano Didattico Personalizzato.</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🎯 La Funzione Strumentale DSA/BES</h3>
-            <p style="margin-bottom: 20px;">All'interno dell'Istituto la funzione strumentale competente si occupa di:</p>
-            
-            <div class="grid">
-                <div class="card" style="background: #e8f5e9;">
-                    <h3 style="color: #2e7d32;"><span class="icon" style="background: #2e7d32;">📁</span> Organizzare e Gestire i Documenti</h3>
-                    <ul>
-                        <li>Analizzare le certificazioni in ingresso</li>
-                        <li>Gestire l'archivio cartaceo e digitale delle certificazioni e dei PDP</li>
-                        <li>Rendere accessibili ai docenti le documentazioni nel rispetto della privacy</li>
-                        <li>Stendere procedure di elaborazione e attuazione PDP</li>
-                        <li>Gestire il monitoraggio intermedio</li>
-                    </ul>
-                </div>
-                
-                <div class="card" style="background: #e3f2fd;">
-                    <h3 style="color: #1565c0;"><span class="icon" style="background: #1565c0;">🤝</span> Supportare i Colleghi</h3>
-                    <ul>
-                        <li>Analisi delle certificazioni</li>
-                        <li>Stesura dei PDP</li>
-                        <li>Gestione casi problematici</li>
-                        <li>Analisi della normativa dell'area DSA/BES</li>
-                        <li>Affiancamento nei colloqui con le famiglie (su richiesta)</li>
-                        <li>Accoglienza dei nuovi docenti</li>
-                        <li>Promozione attività di aggiornamento</li>
-                        <li>Rilevazione e diffusione buone prassi</li>
-                        <li>Rilevazione esigenze di materiali didattici specifici</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="card" style="background: #fff3e0;">
-                    <h3 style="color: #ef6c00;"><span class="icon" style="background: #ef6c00;">👨‍👩‍👧</span> Curare i Rapporti con le Famiglie</h3>
-                    <ul>
-                        <li>Garantire un canale di comunicazione alle famiglie</li>
-                        <li>Offrire consulenza ai genitori nella fase precedente all'iscrizione</li>
-                        <li>Contattare i genitori degli studenti con DSA di nuova iscrizione</li>
-                        <li>Gestire le criticità nei rapporti scuola-famiglia</li>
-                        <li>Fornire informazioni</li>
-                        <li>Incontrare i genitori in presenza o videoconferenza quando richiesto</li>
-                    </ul>
-                </div>
-                
-                <div class="card" style="background: #fce4ec;">
-                    <h3 style="color: #c2185b;"><span class="icon" style="background: #c2185b;">📝</span> Gestire la Modulistica</h3>
-                    <ul>
-                        <li>Revisione modelli PDP per esigenze rilevate</li>
-                        <li>Fornire altra modulistica necessaria per genitori ed alunni</li>
-                        <li>Modello richiesta registrazione lezioni in classe</li>
-                        <li>Modello delega firma PDP per secondo genitore</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card" style="background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
-                <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">✉️</span> Ulteriori Compiti</h3>
-                <ul style="color: white;">
-                    <li><strong>Gestire le comunicazioni interne ed esterne</strong> per l'area DSA/BES</li>
-                    <li><strong>Collaborare con altre aree/commissioni</strong> dell'Istituto</li>
-                </ul>
-            </div>
-
-            <div class="highlight">
-                <h4>📧 Contatto Area DSA e BES</h4>
-                <p style="font-size: 1.2em;"><strong>Email:</strong> <a href="mailto:referente.dsa@agrariomendel.it" style="color: white; text-decoration: underline;">referente.dsa@agrariomendel.it</a></p>
-            </div>
-
-            <h3 style="color: #6B8E23; margin-top: 40px;">♿ Disabilità</h3>
-            
-            <div class="card">
-                <h3><span class="icon">🌍</span> Due Tipi di Azioni</h3>
-                <p>Le azioni della scuola per l'inclusione scolastica sono di due tipi:</p>
-                <ul>
-                    <li><strong>Azioni di rete e di territorio</strong></li>
-                    <li><strong>Azioni interne all'Istituto</strong></li>
-                </ul>
-            </div>
-
-            <h4 style="color: #556B2F; margin-top: 25px; font-size: 1.3em;">🔗 Azioni di Rete e di Territorio</h4>
-            
-            <div class="card" style="background: #e8f5e9;">
-                <p>L'Istituto ha all'attivo collaborazioni con:</p>
-                <ul>
-                    <li><strong>Ambito territoriale</strong></li>
-                    <li><strong>Comuni di provenienza degli alunni</strong></li>
-                    <li><strong>Agenzie educative del territorio</strong></li>
-                    <li><strong>Unità di neuropsichiatria di riferimento</strong></li>
-                    <li><strong>Utilizzo della piattaforma Cosmi ICF</strong> per la predisposizione del PEI</li>
-                </ul>
-            </div>
-
-            <h4 style="color: #556B2F; margin-top: 25px; font-size: 1.3em;">🏫 Azioni Interne all'Istituto</h4>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">♿ Disabilità</h3>
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">📋</span> a. Elaborazione dei PEI</h3>
+                    <h3><span class="icon">📋</span> Elaborazione dei PEI</h3>
                     <p>Piano Educativo Individualizzato per ogni studente con disabilità</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🎨</span> b. Progetti per l'Inclusione</h3>
-                    <p>Realizzazione dei progetti curriculari ed extracurricolari previsti dal PTOF finalizzati all'inclusione:</p>
-                    <ul style="margin-top: 10px;">
-                        <li><strong>Progetto autonomia</strong></li>
-                        <li><strong>Progetto serra</strong></li>
-                        <li><strong>Progetto creatività</strong></li>
-                    </ul>
+                    <h3><span class="icon">🎨</span> Progetti per l'Inclusione</h3>
+                    <p>Realizzazione progetti curriculari ed extracurricolari per l'inclusione</p>
                 </div>
-            </div>
-
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="icon">🚌</span> c. Uscite Didattiche</h3>
-                    <p>Organizzazione delle uscite didattiche e delle attività proposte ai gruppi classe con particolare attenzione all'inclusione</p>
-                </div>
-                
-                <div class="card">
-                    <h3><span class="icon">📚</span> d. Formazione</h3>
-                    <p>Azioni di autoformazione e formazione dei docenti e del personale educativo sull'inclusione</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3><span class="icon">🎓</span> e. Pre-inserimento e Accoglienza</h3>
-                <p>Attività di pre-inserimento e di accoglienza dei nuovi iscritti per facilitare il passaggio alla scuola superiore</p>
             </div>
 
             <div class="stats">
@@ -1248,36 +1387,9 @@
                 </div>
             </div>
 
-            <div class="card" style="background: #e8f5e9;">
-                <h3 style="color: #556B2F;">📧 Referenti Sostegno Studenti DVA</h3>
-                <p><strong>Prof.sse L'Episcopo Gianna e Sala Federica</strong><br>
-                Email: <a href="mailto:referenti.sostegno@agrariomendel.it" style="color: #556B2F; font-weight: bold;">referenti.sostegno@agrariomendel.it</a></p>
-            </div>
-
-            <div class="card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);">
-                <h3 style="color: #e65100;"><span class="icon" style="background: #e65100;">♿</span> Accessibilità</h3>
-                <p>La struttura si è adeguata negli anni per <strong>superare le barriere architettoniche</strong> e garantire l'accessibilità a tutti gli studenti.</p>
-            </div>
-
-            <div class="card" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);">
-                <h3 style="color: #00695c;"><span class="icon" style="background: #00695c;">📜</span> Novità Normative</h3>
-                <p>Dall'anno scolastico 2023/24 si adottano le <strong>novità normative introdotte dal Decreto Interministeriale 1 agosto 2023 n. 153</strong> con adeguata formazione del personale.</p>
-            </div>
-
-            <div class="highlight">
-                <h4>📄 Piano per l'Inclusione (P.I.)</h4>
-                <p style="font-size: 1.1em;">Per una <strong>completa descrizione delle azioni intraprese dall'Istituto</strong>, consulta il <strong>Piano per l'Inclusione (P.I.)</strong> disponibile sul sito web.</p>
-                <p style="margin-top: 15px;">Il P.I. viene aggiornato annualmente per rispondere alle esigenze specifiche degli studenti e migliorare continuamente i servizi di inclusione.</p>
-                <div style="text-align: center; margin-top: 25px;">
-                    <a href="https://agrariomendel.edu.it/servizi/95-pi-piano-per-linclusione" class="btn" target="_blank" style="font-size: 1.1em;">
-                        📋 Consulta il Piano per l'Inclusione
-                    </a>
-                </div>
-            </div>
-
-            <div class="card" style="text-align: center; background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
+            <div class="card special-card">
                 <h3 style="color: white;">💚 La nostra filosofia inclusiva</h3>
-                <p style="font-size: 1.1em; color: white;">L'IIS Mendel crede fermamente che <strong>ogni studente abbia diritto a un'istruzione di qualità</strong> e lavora quotidianamente per creare un ambiente scolastico accogliente, rispettoso delle diversità e capace di valorizzare il potenziale di ciascuno.</p>
+                <p style="color: white;">L'IIS Mendel crede che ogni studente abbia diritto a un'istruzione di qualità.</p>
             </div>
 
             <div class="footer-credit">
@@ -1289,12 +1401,12 @@
         <div id="ptof" class="tab-content">
             <h2 class="section-title">📖 Il Nostro PTOF</h2>
             
-            <div class="highlight">
+            <div class="highlight floating">
                 <h4>📋 Piano Triennale dell'Offerta Formativa 2025-2028</h4>
-                <p style="font-size: 1.2em;">Il PTOF è il documento fondamentale che presenta l'identità culturale e progettuale dell'Istituto Mendel. Contiene tutte le informazioni sull'organizzazione, i progetti, le attività e gli obiettivi della nostra scuola.</p>
+                <p style="font-size: 1.2em;">Il PTOF è il documento fondamentale che presenta l'identità culturale e progettuale dell'Istituto Mendel.</p>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 30px;">🔑 Cosa trovi nel PTOF</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🔑 Cosa trovi nel PTOF</h3>
             
             <div class="grid">
                 <div class="card">
@@ -1338,31 +1450,11 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 40px;">🔍 Approfondimenti</h3>
-            
-            <div class="card">
-                <ul>
-                    <li><strong>Organizzazione:</strong> Organigramma, commissioni, gruppi di lavoro</li>
-                    <li><strong>Risorse:</strong> Strutture, laboratori, attrezzature, biblioteca</li>
-                    <li><strong>Formazione docenti:</strong> Piano di formazione e aggiornamento</li>
-                    <li><strong>Valutazione:</strong> Sistema di valutazione degli studenti e autovalutazione d'istituto</li>
-                    <li><strong>Rapporti scuola-famiglia:</strong> Modalità di comunicazione e partecipazione</li>
-                    <li><strong>Orientamento:</strong> In entrata, in itinere e in uscita</li>
-                    <li><strong>Sicurezza:</strong> Protocolli di sicurezza e piano di emergenza</li>
-                </ul>
-            </div>
-
-            <div style="text-align: center; margin: 50px 0;">
-                <h3 style="color: #6B8E23; margin-bottom: 20px;">📥 Scarica il PTOF Completo</h3>
-                <p style="font-size: 1.1em; margin-bottom: 30px; color: #666;">Consulta il documento completo per conoscere tutti i dettagli della nostra offerta formativa</p>
-                <a href="https://agrariomendel.edu.it/servizi/203-ptof-piano-offerta-triennale-2025-2028" class="btn" target="_blank" style="font-size: 1.2em; padding: 20px 40px;">
-                    📄 Vai al PTOF 2025-2028
+            <div style="text-align: center; margin: 60px 0;">
+                <h3 style="color: #11998e; margin-bottom: 30px; font-size: 2em;">📥 Scarica il PTOF Completo</h3>
+                <a href="https://agrariomendel.edu.it/servizi/203-ptof-piano-offerta-triennale-2025-2028" class="btn" target="_blank">
+                    <span>📄 Vai al PTOF 2025-2028</span>
                 </a>
-            </div>
-
-            <div class="card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
-                <h3 style="color: #2e7d32;">💡 Partecipa alla vita della scuola!</h3>
-                <p style="font-size: 1.1em;">Il PTOF è un documento dinamico che si arricchisce dei contributi di tutta la comunità scolastica: studenti, famiglie, docenti e personale. Le vostre idee e suggerimenti sono sempre benvenuti!</p>
             </div>
 
             <div class="footer-credit">
@@ -1374,9 +1466,9 @@
         <div id="contatti" class="tab-content">
             <h2 class="section-title">📞 Contatti e Informazioni</h2>
             
-            <div class="highlight">
+            <div class="highlight floating">
                 <h4>🏢 IIS Gregorio Mendel</h4>
-                <p style="font-size: 1.2em;">Via Ferrazzi, 15 - 20020 Villa Cortese (MI)</p>
+                <p style="font-size: 1.3em;">Via Ferrazzi, 15 - 20020 Villa Cortese (MI)</p>
             </div>
 
             <div class="contact-grid">
@@ -1392,7 +1484,7 @@
                 
                 <div class="contact-item">
                     <strong>🌐 Sito Web</strong>
-                    <a href="https://agrariomendel.edu.it/" target="_blank" style="color: #6B8E23;">agrariomendel.edu.it</a>
+                    <a href="https://agrariomendel.edu.it/" target="_blank" style="color: #11998e;">agrariomendel.edu.it</a>
                 </div>
                 
                 <div class="contact-item">
@@ -1401,94 +1493,29 @@
                 </div>
             </div>
 
-            <h3 style="color: #6B8E23; margin-top: 40px;">📱 Seguici sui Social Media</h3>
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">📱 Seguici sui Social Media</h3>
             
             <div class="grid">
                 <div class="card" style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); color: white;">
                     <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">📺</span> YouTube</h3>
-                    <p>Scopri i nostri video, le attività della scuola, i laboratori e i progetti dei nostri studenti!</p>
-                    <a href="https://agrariomendel.edu.it/comunicati/1619-canale-youtube-delliis-mendel" target="_blank" class="btn" style="background: white; color: #CC0000; margin-top: 15px;">
-                        🎥 Visita il canale YouTube
+                    <p>Scopri i nostri video e le attività della scuola!</p>
+                    <a href="https://agrariomendel.edu.it/comunicati/1619-canale-youtube-delliis-mendel" target="_blank" class="btn" style="background: white; color: #CC0000;">
+                        <span>🎥 Visita il canale YouTube</span>
                     </a>
                 </div>
                 
                 <div class="card" style="background: linear-gradient(135deg, #E1306C 0%, #C13584 100%); color: white;">
                     <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">📸</span> Instagram</h3>
-                    <p>Segui le nostre storie quotidiane, le foto delle attività e rimani aggiornato sugli eventi!</p>
-                    <a href="https://agrariomendel.edu.it/comunicati/740-canale-instagram-iis-mendel" target="_blank" class="btn" style="background: white; color: #C13584; margin-top: 15px;">
-                        📷 Seguici su Instagram
+                    <p>Segui le nostre storie quotidiane!</p>
+                    <a href="https://agrariomendel.edu.it/comunicati/740-canale-instagram-iis-mendel" target="_blank" class="btn" style="background: white; color: #C13584;">
+                        <span>📷 Seguici su Instagram</span>
                     </a>
                 </div>
             </div>
 
-            <div class="highlight">
-                <h4>💬 Resta connesso con noi!</h4>
-                <p>Attraverso i nostri canali social potrai vedere in tempo reale cosa succede all'Istituto Mendel: eventi, progetti, successi dei nostri studenti, open day e molto altro. Non perdere l'occasione di far parte della nostra community!</p>
-            </div>
-
-            <h3 style="color: #6B8E23; margin-top: 40px;">👥 Referenti per area</h3>
-            
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="icon">📚</span> Istituto Tecnico</h3>
-                    <p><strong>Prof.ssa Ronzello Giuliana</strong><br>
-                    <a href="mailto:ronzello.giu@agrariomendel.it">ronzello.giu@agrariomendel.it</a></p>
-                </div>
-                
-                <div class="card">
-                    <h3><span class="icon">🔧</span> Professionale IEFP</h3>
-                    <p><strong>Prof. Donnarumma Pasquale</strong><br>
-                    <a href="mailto:donnarumma.pas@agrariomendel.it">donnarumma.pas@agrariomendel.it</a></p>
-                </div>
-                
-                <div class="card">
-                    <h3><span class="icon">🌙</span> Corsi IDA</h3>
-                    <p><strong>Prof. Albè Franco</strong><br>
-                    <a href="mailto:ida@agrariomendel.it">ida@agrariomendel.it</a></p>
-                </div>
-                
-                <div class="card">
-                    <h3><span class="icon">🧭</span> Orientamento</h3>
-                    <p><strong>Prof.ssa De Cecco, Prof. Natoli, Prof.ssa Zanzottera</strong><br>
-                    <a href="mailto:orientamento@agrariomendel.it">orientamento@agrariomendel.it</a></p>
-                </div>
-            </div>
-
-            <h3 style="color: #6B8E23; margin-top: 40px;">🚌 Come raggiungerci</h3>
-            
-            <div class="card">
-                <h3><span class="icon">🚍</span> Autobus</h3>
-                <ul style="columns: 2; column-gap: 30px;">
-                    <li>Z643 - Vittuone/Arluno/Ossona/Parabiago/Villa Cortese</li>
-                    <li>Z627 - Castano P./Busto Garolfo/Legnano</li>
-                    <li>Z625 - Busto Garolfo/Dairago/Busto Arsizio</li>
-                    <li>Z642 - Magenta/Corbetta/Busto G./Legnano</li>
-                    <li>Z644 - Arconate/Dairago/Villa Cortese/Busto G./Parabiago</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3><span class="icon">🚆</span> Treno</h3>
-                <ul>
-                    <li>Trenord S5</li>
-                    <li>Trenord S6</li>
-                    <li>Regionale Varese-Treviglio</li>
-                    <li>Regionale Rho-Novara</li>
-                    <li>Regionale Como-Milano</li>
-                </ul>
-            </div>
-
-            <div class="highlight" style="margin-top: 40px; text-align: center;">
-                <h3>📅 Orario delle lezioni</h3>
-                <p style="font-size: 1.3em; margin: 15px 0;"><strong>Inizio lezioni: 8:30</strong></p>
-                <p><strong>Classi Prime:</strong> 33 ore settimanali<br>
-                <strong>Classi Seconde, Terze, Quarte e Quinte:</strong> 32 ore settimanali</p>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="https://agrariomendel.edu.it/" class="btn" target="_blank">🌐 Visita il sito ufficiale</a>
-                <a href="mailto:orientamento@agrariomendel.it" class="btn">✉️ Contatta orientamento</a>
-                <a href="https://agrariomendel.edu.it/servizi/203-ptof-piano-offerta-triennale-2025-2028" class="btn" target="_blank">📖 Scarica il PTOF</a>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://agrariomendel.edu.it/" class="btn" target="_blank"><span>🌐 Visita il sito ufficiale</span></a>
+                <a href="mailto:orientamento@agrariomendel.it" class="btn"><span>✉️ Contatta orientamento</span></a>
             </div>
 
             <div class="footer-credit">
@@ -1499,27 +1526,31 @@
 
     <script>
         function showTab(tabName) {
-            // Nascondi tutti i contenuti
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => {
                 content.classList.remove('active');
             });
             
-            // Rimuovi active da tutti i tab
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Mostra il contenuto selezionato
             document.getElementById(tabName).classList.add('active');
-            
-            // Aggiungi active al tab selezionato
             event.target.classList.add('active');
             
-            // Scroll to top
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+
+        // Aggiungi effetto parallax leggero allo scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating');
+            parallaxElements.forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed * 0.05}px)`;
+            });
+        });
     </script>
 </body>
 </html>
