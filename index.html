@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIS Gregorio Mendel - Villa Cortese</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6B8E23 0%, #556B2F 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #6B8E23;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab {
+            padding: 20px 30px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+            color: #6B8E23;
+        }
+
+        .tab.active {
+            color: #6B8E23;
+            background: white;
+            border-bottom-color: #6B8E23;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 50px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            color: #6B8E23;
+            margin-bottom: 30px;
+            border-left: 6px solid #8FBC8F;
+            padding-left: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #556B2F;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: #6B8E23;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .highlight h4 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            border-left: 3px solid #6B8E23;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #6B8E23;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #6B8E23;
+        }
+
+        .timeline-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #6B8E23;
+            margin-bottom: 8px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #6B8E23;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 8px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #6B8E23;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-item strong {
+            color: #6B8E23;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .btn {
+            background: #6B8E23;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            background: #556B2F;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '🌱';
+            position: absolute;
+            left: 0;
+        }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 2px solid #6B8E23;
+            border-radius: 8px;
+        }
+
+        .footer-credit p {
+            color: #666;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tab-content {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 1.8em;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌿 IIS Gregorio Mendel</h1>
+            <p>Istituto di Istruzione Superiore - Villa Cortese (MI)</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('home')">🏠 Home</button>
+            <button class="tab" onclick="showTab('tecnico')">📚 Istituto Tecnico</button>
+            <button class="tab" onclick="showTab('professionale')">👷 Professionale</button>
+            <button class="tab" onclick="showTab('ida')">🌙 Corsi Serali</button>
+            <button class="tab" onclick="showTab('pcto')">💼 Scuola-Lavoro</button>
+            <button class="tab" onclick="showTab('progetti')">🎨 Progetti</button>
+            <button class="tab" onclick="showTab('internazionalizzazione')">🌍 Internazionalizzazione</button>
+            <button class="tab" onclick="showTab('inclusione')">🤝 Inclusione</button>
+            <button class="tab" onclick="showTab('ptof')">📖 PTOF</button>
+            <button class="tab" onclick="showTab('contatti')">📞 Contatti</button>
+        </div>
+
+        <!-- HOME -->
+        <div id="home" class="tab-content active">
+            <h2 class="section-title">Benvenuti al Mendel!</h2>
+            
+            <div class="highlight">
+                <h4>La nostra storia</h4>
+                <p>Dal 1935 formiamo professionisti dell'agricoltura, dell'ambiente e del territorio. Intitolato nel 1990 a Gregorio Mendel, padre della genetica, il nostro istituto unisce innovazione, ricerca e rispetto della tradizione rurale.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1935</div>
+                    <p>La famiglia Ferrazzi-Cova lascia in eredità la Scuola Teorico-Pratica di Agricoltura al comune di Villa Cortese</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1977</div>
+                    <p>Su iniziativa del prof. Carlo Tognoni, viene attivato l'indirizzo agrario e trasferito a Villa Cortese</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1988</div>
+                    <p>Nasce l'Istituto Tecnico Agrario Statale</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1990</div>
+                    <p>Intitolazione a Gregorio Mendel, padre della genetica</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">🎯 La nostra offerta formativa</h3>
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📘</span> Istituto Tecnico</h3>
+                    <p>Diploma di Perito Agrario con specializzazioni in Gestione Ambiente e Territorio (GAT) o Produzioni e Trasformazioni (PT)</p>
+                </div>
+                <div class="card">
+                    <h3><span class="icon">🔧</span> Formazione Professionale</h3>
+                    <p>Qualifica di Operatore Agricolo e Diploma di Tecnico Agricolo (IEFP Regionale)</p>
+                </div>
+                <div class="card">
+                    <h3><span class="icon">🌙</span> Corsi Serali (IDA)</h3>
+                    <p>Percorsi per adulti e lavoratori, tecnici e professionali</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">32</span>
+                    <span class="stat-label">Aule dotate di Digital Board</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">7</span>
+                    <span class="stat-label">Laboratori specializzati</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">300+</span>
+                    <span class="stat-label">Aziende convenzionate</span>
+                </div>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- ISTITUTO TECNICO -->
+        <div id="tecnico" class="tab-content">
+            <h2 class="section-title">📚 Istituto Tecnico Agrario</h2>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/112-istituto-tecnico" class="btn" target="_blank" style="font-size: 1.2em;">
+                    🌐 Visita la pagina ufficiale dell'Istituto Tecnico
+                </a>
+            </div>
+            
+            <div class="highlight">
+                <h4>Indirizzo: Agraria, Agroalimentare e Agroindustria</h4>
+                <p><strong>Durata:</strong> 5 anni | <strong>Diploma:</strong> Perito Agrario | <strong>Orario:</strong> 33 ore (1° anno), 32 ore (anni successivi)</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🎓 Articolazioni del Secondo Biennio e Quinto Anno</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🌍</span> GAT - Gestione Ambiente e Territorio</h3>
+                    <ul>
+                        <li>Diverse tipologie di agricoltura</li>
+                        <li>Conservazione e tutela del territorio</li>
+                        <li>Buone pratiche agricole</li>
+                        <li>Studio ambienti geografici ed ecologici</li>
+                        <li>Sostenibilità ambientale</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🏭</span> PT - Produzioni e Trasformazioni</h3>
+                    <ul>
+                        <li>Tecniche produttive tradizionali e innovative</li>
+                        <li>Organizzazione del mercato agricolo</li>
+                        <li>Trasformazione prodotti agricoli</li>
+                        <li>Qualità produzioni agroalimentari</li>
+                        <li>Biotecnologie applicate</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">💼 Sbocchi professionali</h3>
+            <div class="card">
+                <ul style="columns: 2; column-gap: 30px;">
+                    <li>Dirigere e gestire imprese agricole</li>
+                    <li>Progettare opere di miglioramento fondiario</li>
+                    <li>Misurare, stimare e dividere fondi agricoli</li>
+                    <li>Progettare fabbricati rurali</li>
+                    <li>Lavori catastali e topografici</li>
+                    <li>Assistenza tecnica ai produttori</li>
+                    <li>Libera professione di Perito Agrario</li>
+                    <li>Accesso a tutte le università</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🎓 Corsi di Laurea consigliati</h3>
+            <div class="grid">
+                <div class="card" style="background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
+                    <p>• Scienze e Tecnologie Agrarie<br>• Scienze e Tecnologie Alimentari<br>• Chimica<br>• Biologia</p>
+                </div>
+                <div class="card" style="background: linear-gradient(135deg, #556B2F 0%, #6B8E23 100%); color: white;">
+                    <p>• Scienze Ambientali<br>• Produzioni Animali<br>• Veterinaria<br>• Ingegneria Ambientale</p>
+                </div>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- PROFESSIONALE -->
+        <div id="professionale" class="tab-content">
+            <h2 class="section-title">👷 Professionale Statale e Istruzione e Formazione Professionale (IEFP)</h2>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/113-istituto-professionale" class="btn" target="_blank" style="font-size: 1.2em;">
+                    🌐 Visita la pagina ufficiale dell'Istituto Professionale
+                </a>
+            </div>
+            
+            <div class="highlight">
+                <h4>Percorso Regionale - Operatore e Tecnico Agricolo</h4>
+                <p><strong>Triennio:</strong> Qualifica di Operatore Agricolo (470 ore stage) | <strong>4° Anno:</strong> Diploma Tecnico Agricolo (210 ore stage)</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">📋 Struttura del percorso</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">1️⃣</span> Triennio (I-II-III anno)</h3>
+                    <p><strong>Titolo conseguito:</strong> Qualifica di OPERATORE AGRICOLO</p>
+                    <p><strong>Indirizzo:</strong> Coltivazione di piante erbacee, orticole e legnose in pieno campo e in serra</p>
+                    <p><strong>Stage:</strong> Minimo 470 ore nel triennio</p>
+                    <p><strong>Orario:</strong> 32 ore settimanali</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">4️⃣</span> Quarto Anno</h3>
+                    <p><strong>Titolo conseguito:</strong> Diploma di TECNICO AGRICOLO</p>
+                    <p><strong>Indirizzo:</strong> Coltivazione di piante erbacee, orticole e legnose in pieno campo e in serra</p>
+                    <p><strong>Stage:</strong> Minimo 210 ore</p>
+                    <p><strong>Orario:</strong> 32 ore settimanali</p>
+                </div>
+            </div>
+
+            <div class="card" style="background: #f0f8ff;">
+                <h3 style="color: #556B2F;">✨ Caratteristiche distintive</h3>
+                <ul>
+                    <li><strong>Apprendimento pratico:</strong> Contesti laboratoriali e pratici dal primo anno</li>
+                    <li><strong>Stage in azienda:</strong> Dal secondo anno (dopo 15 anni di età) presso aziende convenzionate</li>
+                    <li><strong>Inserimento lavorativo:</strong> Qualifica spendibile immediatamente nel mondo del lavoro</li>
+                    <li><strong>Competenze bilanciate:</strong> 35-45% competenze di base, 55-65% competenze tecnico-professionali</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">💼 Sbocchi professionali - Operatore Agricolo</h3>
+            <div class="card">
+                <ul style="columns: 2; column-gap: 30px;">
+                    <li>Operario qualificato in aziende florovivaistiche</li>
+                    <li>Garden center e negozi di fiori</li>
+                    <li>Imprese di realizzazione aree verdi</li>
+                    <li>Mansioni esecutive in cantieri forestali</li>
+                    <li>Gestione del verde pubblico</li>
+                    <li>Attività agricola in proprio</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">💼 Sbocchi professionali - Tecnico Agricolo IV anno</h3>
+            <div class="card">
+                <ul>
+                    <li>Tecnico agricolo presso aziende agricole, vivai, caseifici, cantine</li>
+                    <li>Imprenditore agricolo con accesso a finanziamenti regionali/europei</li>
+                    <li>Proseguimento con 5° anno integrativo per Diploma di Stato</li>
+                    <li>Accesso all'Alta Formazione Professionale (IFTS)</li>
+                </ul>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- IDA -->
+        <div id="ida" class="tab-content">
+            <h2 class="section-title">🌙 Corsi Serali - IDA (Istruzione degli Adulti)</h2>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/114-corsi-serali-ida-istruzione-degli-adulti" class="btn" target="_blank" style="font-size: 1.2em;">
+                    🌐 Visita la pagina ufficiale dei Corsi Serali IDA
+                </a>
+            </div>
+            
+            <div class="highlight">
+                <h4>Percorsi per adulti, lavoratori e diplomati</h4>
+                <p><strong>Orario:</strong> Serale (22 ore settimanali) | <strong>Iscrizioni:</strong> Gennaio/Febbraio - 15 Ottobre</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">📚 Offerta formativa IDA</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📘</span> IDA - Istituto Tecnico</h3>
+                    <p><strong>Attivo:</strong> III, IV, V anno</p>
+                    <p><strong>Orario:</strong> 22 ore settimanali (comprensive di 7-6-6-4 ore compresenza)</p>
+                    <p><strong>Requisiti:</strong> Aver frequentato almeno una classe del triennio o esami integrativi</p>
+                    <p><strong>Assenza PCTO</strong> (Formazione Scuola-Lavoro)</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🔧</span> IDA - Istruzione Professionale</h3>
+                    <p><strong>Attivo:</strong> I, II, III, IV anno (triennio) + V anno integrativo</p>
+                    <p><strong>Indirizzo:</strong> Servizi per l'Agricoltura e lo Sviluppo Rurale</p>
+                    <p><strong>Opzione:</strong> Valorizzazione e Commercializzazione dei Prodotti del Territorio</p>
+                    <p><strong>Assenza PCTO</strong> (Formazione Scuola-Lavoro)</p>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                <h3 style="color: #556B2F;">👥 A chi si rivolge</h3>
+                <ul>
+                    <li>Studenti maggiorenni (o in procinto di diventarlo)</li>
+                    <li>Lavoratori che vogliono conseguire il diploma</li>
+                    <li>Disoccupati e non occupati</li>
+                    <li>Persone già diplomate o laureate che vogliono una seconda specializzazione</li>
+                </ul>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">22</span>
+                    <span class="stat-label">Ore settimanali</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Anni attivi (Tecnico)</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">66</span>
+                    <span class="stat-label">Ore totali Professionale</span>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>📧 Referente IDA</h4>
+                <p><strong>Prof. Albè Franco</strong><br>
+                Email: <a href="mailto:ida@agrariomendel.it" style="color: white; text-decoration: underline;">ida@agrariomendel.it</a></p>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- PCTO -->
+        <div id="pcto" class="tab-content">
+            <h2 class="section-title">💼 Formazione Scuola-Lavoro (Ex PCTO)</h2>
+            
+            <div class="highlight">
+                <h4>🎯 Esperienza pratica nel mondo del lavoro</h4>
+                <p>La Formazione Scuola-Lavoro è un'esperienza formativa che unisce sapere e saper fare, orienta le aspirazioni degli studenti e apre possibilità di sbocchi lavorativi.</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">📊 Monte ore per indirizzo</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📘</span> Istituto Tecnico</h3>
+                    <p><strong>Totale:</strong> 150 ore</p>
+                    <ul>
+                        <li>120 ore di stage interno (60 ore/anno nel secondo biennio)</li>
+                        <li>Ore rimanenti di stage estivo esterno</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🔧</span> IEFP Regionale</h3>
+                    <p><strong>Triennio:</strong> 470 ore</p>
+                    <p><strong>Quarto anno:</strong> 210 ore</p>
+                    <ul>
+                        <li>Dal secondo anno (dopo 15 anni)</li>
+                        <li>Possibilità di stage interni presso l'Azienda Ferrazzi-Cova</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🏢 Le nostre aziende convenzionate</h3>
+            
+            <div class="card" style="background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
+                <h3 style="color: white;">🎉 Oltre 300 aziende convenzionate!</h3>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>30%</h3>
+                    <p>Aziende agricole zootecniche</p>
+                </div>
+                <div class="card">
+                    <h3>30%</h3>
+                    <p>Servizi e manutenzione del verde</p>
+                </div>
+                <div class="card">
+                    <h3>20%</h3>
+                    <p>Florovivaismo</p>
+                </div>
+                <div class="card">
+                    <h3>10%</h3>
+                    <p>Aziende agricole</p>
+                </div>
+                <div class="card">
+                    <h3>5%</h3>
+                    <p>Ambulatori veterinari</p>
+                </div>
+                <div class="card">
+                    <h3>5%</h3>
+                    <p>Negozi e farmacie</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🌟 Attività presso l'Istituto Mendel</h3>
+            
+            <div class="card">
+                <ul>
+                    <li><strong>Stage presso l'Azienda Ferrazzi-Cova</strong> - Esperienza pratica diretta</li>
+                    <li><strong>Progetto Orto in Alternanza</strong> - Coltivazione e gestione orto didattico</li>
+                    <li><strong>Progetto Miele</strong> - Apicoltura e produzione</li>
+                    <li><strong>Progetto Officina delle Fragranze</strong> - Piante aromatiche e oli essenziali</li>
+                    <li><strong>Incontri con esperti del settore</strong></li>
+                    <li><strong>Visite aziendali e fiere di settore</strong></li>
+                    <li><strong>Stage linguistici all'estero</strong></li>
+                    <li><strong>Corso sulla sicurezza</strong> - Obbligatorio per tutti</li>
+                </ul>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- PROGETTI -->
+        <div id="progetti" class="tab-content">
+            <h2 class="section-title">🎨 Progetti d'Istituto A.S. 2024-2025</h2>
+            
+            <div class="highlight">
+                <h4>🌟 Innovazione e Tradizione</h4>
+                <p>L'Istituto Mendel promuove numerosi progetti didattici ed extracurricolari per arricchire l'offerta formativa e sviluppare competenze trasversali negli studenti. I progetti sono elencati per area tematica.</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">👋 Accoglienza e Orientamento</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🎒</span> Accoglienza Classi Prime</h3>
+                    <p><strong>Destinatari:</strong> Classi 1</p>
+                    <p>I primi giorni dell'anno scolastico gli studenti delle classi prime vengono guidati alla conoscenza degli ambienti dell'Istituto, delle sue regole e della sua storia, attraverso attività individuali e di gruppo.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🤝</span> Pre-inserimento</h3>
+                    <p><strong>Destinatari:</strong> Studenti con disabilità - nuovi iscritti</p>
+                    <p>Percorso di 10-12 ore, concordato con la scuola media di provenienza, per accogliere e conoscere i nuovi studenti con disabilità facilitando il loro inserimento.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🌱 Progetti Ambientali e Agricoli</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🐝</span> APIMANIA</h3>
+                    <p><strong>Destinatari:</strong> Classi 3, 4, 5 (max 25 studenti)</p>
+                    <p>Progetto "Apicoltura, conoscenze scientifiche e tecniche di allevamento". 12 lezioni frontali da 2 ore + 10 lezioni di esercitazione in campo da 1.5 ore + visita apiario. Da gennaio a luglio in orario extracurricolare.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🌸</span> Officina delle Fragranze</h3>
+                    <p><strong>Destinatari:</strong> Classi 3 e 4</p>
+                    <p>Coltivazione piante aromatiche, cure colturali, metodiche estrattive per oli essenziali e prodotti erboristici. Culmina con l'esposizione e vendita prodotti a dicembre. Attività in orario extracurricolare (ottobre-dicembre) e raccolta (giugno-luglio).</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🌺</span> Santuario in Fiore</h3>
+                    <p><strong>Destinatari:</strong> Classi 2</p>
+                    <p>In collaborazione con Legambiente Parabiago: produzione e vendita piante per valorizzare il Santuario del '500 "Madonna di Dio 'l sa". Manifestazione ai primi di maggio. Attività curriculare ed extracurricolare.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🐛</span> Gelsibachicoltura</h3>
+                    <p><strong>Destinatari:</strong> Classi 5C, 5D, 5E, 4A GAT</p>
+                    <p>Riscoperta e valorizzazione della bachicoltura: allevamento bachi da seta, entomologia, patologie, produzione e allestimento bigattiera. Attività curriculari ed extracurricolari. Parte del PNRR-STEM.</p>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🌍</span> Partenariato WWF Lombardia</h3>
+                    <p><strong>Destinatari:</strong> Classi 2</p>
+                    <p>Citizen Science WWF: incontri a tema su cambiamento climatico, biodiversità e economia circolare. Max 2 incontri (a scuola e al Parco Ila di Legnano). Sensibilizzazione alle materie STEM, fruibile anche da studenti con BES/disabilità.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🤝 Progetti per l'Inclusione</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🎨</span> Creatività</h3>
+                    <p><strong>Destinatari:</strong> Studenti con disabilità</p>
+                    <p>Attività manipolative per sviluppare competenze pre-lavorative: lavoro cooperativo, abilità fino-motorie, gestione tempi. Realizzazione manufatti in gesso e bigliettini riciclando carta. Orario curricolare + extracurricolare.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🌱</span> Dal Seme... La Vita</h3>
+                    <p><strong>Destinatari:</strong> Studenti con disabilità</p>
+                    <p>Da novembre per tutto l'a.s., attività nella serra: rinvasi, riproduzione piante, semina, trapianto, creazione oggetti con materiali di recupero. Migliora competenze di cura e coltivazione. Orario curriculare.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🎬</span> Cinema Insieme</h3>
+                    <p><strong>Destinatari:</strong> Studenti con disabilità</p>
+                    <p>Film e riflessione per migliorare abilità comunicative, cognitive e socio-emotive. Esplorare emozioni e temi quotidiani, incentivare empatia. Attività post-visione: disegni, scrittura, espressione artistica.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">⚽</span> Finalmente Sport</h3>
+                    <p><strong>Destinatari:</strong> Studenti con disabilità</p>
+                    <p>Pratica sportiva in palestra, 2 ore a settimana per tutto l'anno. Guidati da insegnante di Ed. fisica e insegnante di sostegno/educatore. Promuove attività fisica e benessere.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">⚽ Sport e Benessere</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🏃</span> Gruppo Sportivo Scolastico</h3>
+                    <p><strong>Destinatari:</strong> Classi 1, 2, 3, 4, 5</p>
+                    <p>Attività sportiva gratuita in contesto educativo e inclusivo per chi non pratica sport. Allenamenti per tornei e gare studentesche.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🏅</span> Campestre d'Istituto</h3>
+                    <p><strong>Destinatari:</strong> Classi 1, 2, 3, 4, 5</p>
+                    <p>Evento tra fine ottobre e inizio novembre al Campo sportivo di Villa Cortese. I migliori classificati partecipano alla fase provinciale. Promuove la pratica sportiva.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🏆</span> Campionati Interni</h3>
+                    <p><strong>Destinatari:</strong> Classi 1, 2, 3, 4, 5</p>
+                    <p>Gare sportive organizzate all'interno dell'Istituto per promuovere lo sport e la competizione sana tra studenti.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🏊</span> Acquaticità</h3>
+                    <p><strong>Destinatari:</strong> Classi 2</p>
+                    <p>9 lezioni da 50' presso la piscina di Busto Garolfo in orario curriculare. Sviluppo competenze motorie acquatiche. Trasporto con mezzi dell'Istituto.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">⚽</span> Scuole a San Siro</h3>
+                    <p><strong>Destinatari:</strong> Classi 5</p>
+                    <p>Collaborazione con Ufficio scolastico, Inter, Milan e Comune di Milano. Assistere a partite di calcio promuovendo fair-play e rispetto sportivo.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🎓 Educazione alla Salute e Cittadinanza</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">❤️</span> CIC - Educazione alla Salute</h3>
+                    <p><strong>Destinatari:</strong> Classi 3 e 5</p>
+                    <p>Prevenzione dipendenze e ludopatia, promozione sana alimentazione e sostenibilità, sensibilizzazione dono sangue/midollo, diagnosi precoce malattie ematologiche.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🩸</span> AVIS a Scuola</h3>
+                    <p><strong>Destinatari:</strong> Classi 4</p>
+                    <p>Incontro di 2 ore con direttore sanitario AVIS Legnano per informare e sensibilizzare sull'importanza della donazione volontaria di sangue. Orario curriculare.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🧓</span> Alzheimer</h3>
+                    <p><strong>Destinatari:</strong> Studenti interessati</p>
+                    <p>Collaborazione con RSA Villa Cortese per il mese dell'Alzheimer (settembre). Incontro tra generazioni: attività di giardinaggio e floricoltura con residenti con patologia di Alzheimer.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">⚖️</span> Cultura della Legalità</h3>
+                    <p><strong>Destinatari:</strong> Tutte le classi</p>
+                    <p>Incontri su uso cellulari e social con Carabinieri di Legnano, Polizia Postale e Comune di Villa Cortese. Aperti anche ai genitori.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🎭 Cultura e Arte</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📰</span> Quotidiano in Classe</h3>
+                    <p><strong>Destinatari:</strong> Tutte le classi</p>
+                    <p>Possibilità di leggere quotidiani cartacei e/o online consegnati a scuola, con accesso a risorse delle testate giornalistiche.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">📝</span> Poesia</h3>
+                    <p><strong>Destinatari:</strong> Tutti gli studenti</p>
+                    <p>Concorso di poesia in collaborazione con Pro Loco Villa Cortese. Premiazione a giugno (a scuola) e settembre (Fiera d'Autunno).</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🎭</span> GIS - Gruppo Interesse Scala</h3>
+                    <p><strong>Destinatari:</strong> Classi 4, 5 (diurno) + 3, 4, 5 (serale)</p>
+                    <p>Partecipazione a opera e balletto alla Scala di Milano a prezzo agevolato. Incontri preparatori con esperti. Conoscere ente culturale internazionale e linguaggi espressivi. Orario extracurricolare.</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🏛️</span> Giornate FAI - Apprendisti Ciceroni</h3>
+                    <p><strong>Destinatari:</strong> Classi 3, 4, 5 (in PCTO)</p>
+                    <p>18-23 novembre 2024: studenti preparati da volontari FAI conducono visite guidate per coetanei. Presentazione Progetto MAURICE (recupero acque Canale Villoresi). Certificato FAI per PCTO.</p>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>💡 Vuoi saperne di più?</h4>
+                <p>Tutti i progetti sono descritti in dettaglio nel nostro PTOF (Piano Triennale dell'Offerta Formativa). Consulta la sezione dedicata o visita il sito web dell'Istituto per maggiori informazioni!</p>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- INTERNAZIONALIZZAZIONE -->
+        <div id="internazionalizzazione" class="tab-content">
+            <h2 class="section-title">🌍 Internazionalizzazione</h2>
+            
+            <div class="highlight">
+                <h4>✈️ Il Mendel aperto al mondo</h4>
+                <p>L'internazionalizzazione è un pilastro fondamentale della nostra offerta formativa. Attraverso stage linguistici, scambi internazionali e certificazioni, apriamo gli orizzonti dei nostri studenti verso una dimensione europea e globale.</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🇮🇪 Stage Linguistici all'Estero</h3>
+            
+            <div class="grid">
+                <div class="card" style="background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%); color: white;">
+                    <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">🎓</span> Stage di Lingua Inglese in Irlanda</h3>
+                    <p><strong>Destinazione:</strong> Dublino, Irlanda</p>
+                    <p><strong>Durata:</strong> 7-8 giorni</p>
+                    <p><strong>Periodo:</strong> Fine settembre / Prima settimana di ottobre</p>
+                    <p><strong>Partecipanti:</strong> Massimo 40-45 studenti del Triennio</p>
+                    <p style="margin-top: 15px;"><em>Possono iscriversi anche gli studenti che frequentano la classe seconda, che saranno quindi in classe terza l'anno scolastico dello stage.</em></p>
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 10px;">
+                        <strong>📋 Requisiti:</strong><br>
+                        • Profitto almeno sufficiente in Inglese<br>
+                        • Voto di condotta non inferiore a 8<br>
+                        • In caso di alto numero di adesioni, priorità agli studenti prossimi alla conclusione del ciclo di studi
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🎯</span> Obiettivi dello Stage</h3>
+                    <ul>
+                        <li><strong>Conoscere cultura e stile di vita:</strong> Esperienza diretta di un Paese straniero</li>
+                        <li><strong>Ampliare orizzonti culturali:</strong> Crescita personale e interculturale</li>
+                        <li><strong>Sentirsi cittadini europei:</strong> Consapevolezza della cittadinanza europea</li>
+                        <li><strong>Utilizzare la Lingua Inglese:</strong> Come lingua comune di comunicazione</li>
+                        <li><strong>Autonomia e responsabilità:</strong> Esperienza formativa in autonomia</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">🇺🇸 Progetto UTAH</h3>
+            
+            <div class="card" style="background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%); color: white;">
+                <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">🎓</span> Scambio con Utah State University</h3>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Scambio di buone pratiche tra docenti di scienze applicate italiani e americani con l'ateneo <strong>"Utah State University"</strong> di Logan, USA.</p>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 20px 0;">
+                    <p><strong>📅 Durata:</strong> 3 anni (partito nell'a.s. 23/24, concentrandosi sul triennio 2025/2028)</p>
+                    <p><strong>📆 Periodo:</strong> Marzo e Aprile di ogni anno</p>
+                    <p><strong>👩‍🏫 Attività:</strong> La scuola accoglie una docente americana tirocinante che si sta specializzando per insegnare discipline STEM negli USA</p>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🔬</span> Attività Mattutine</h3>
+                    <ul>
+                        <li>Lezioni in compresenza con docenti di STEM nelle classi del triennio</li>
+                        <li>Approfondimenti sulle discipline STEM</li>
+                        <li>Scambio di metodologie didattiche</li>
+                        <li>Esperienze laboratoriali innovative</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">💼</span> Attività Pomeridiane</h3>
+                    <ul>
+                        <li><strong>Lezioni pomeridiane</strong> per insegnanti e studenti</li>
+                        <li><strong>Percorsi di orientamento</strong> per studenti delle quarte e quinte sugli studi universitari all'estero</li>
+                        <li><strong>Opportunità di lavoro</strong> a livello internazionale</li>
+                        <li><strong>"English Talks"</strong> su temi legati all'Agenda 2030 e Obiettivi di Sviluppo Sostenibile (in linea con educazione civica)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>🎯 Focus del Progetto UTAH</h4>
+                <p>Il progetto fa parte delle attività del PTOF ed è mirato a:<br><br>
+                • <strong>Ampliare l'offerta formativa</strong> con focus sull'area scientifica<br>
+                • <strong>Educazione civica:</strong> Agenda 2030 e Obiettivi di Sviluppo Sostenibile<br>
+                • <strong>Orientamento al futuro:</strong> Aiutare gli studenti a orientarsi negli studi universitari all'estero e nelle opportunità di lavoro internazionali<br>
+                • <strong>Scambiare buone pratiche:</strong> Tra docenti italiani e americani<br>
+                • <strong>Migliorare competenze in inglese:</strong> Di docenti e studenti<br>
+                • <strong>Promuovere apertura culturale</strong></p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">📜 Certificazioni Linguistiche</h3>
+            
+            <div class="grid">
+                <div class="card" style="background: #e3f2fd;">
+                    <h3 style="color: #1565c0;"><span class="icon" style="background: #1565c0;">🎓</span> PET - Level B1</h3>
+                    <p><strong>Preliminary English Test</strong></p>
+                    <p>Livello: <strong>B1 Intermediate</strong></p>
+                    <p>Certificazione linguistica riconosciuta a livello internazionale</p>
+                </div>
+                
+                <div class="card" style="background: #e8f5e9;">
+                    <h3 style="color: #2e7d32;"><span class="icon" style="background: #2e7d32;">🏆</span> FCE - Level B2</h3>
+                    <p><strong>First Certificate in English</strong></p>
+                    <p>Livello: <strong>B2 Upper Intermediate</strong></p>
+                    <p>Competenza avanzata nella lingua inglese</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📚</span> Corso di Lingua Inglese per il Potenziamento</h3>
+                <p>L'Istituto propone un <strong>Corso di Lingua Inglese per il potenziamento</strong> che può portare al conseguimento della Certificazione Linguistica PET (livello B1 intermediate) e/o FCE (livello B2 upper intermediate).</p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Destinatari:</strong> Studenti e docenti</li>
+                    <li><strong>Orario:</strong> Pomeridiano</li>
+                    <li><strong>Calendario:</strong> Comunicato quando sarà definito l'orario definitivo delle lezioni</li>
+                </ul>
+                <div style="background: #fff3e0; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                    <strong>💡 Opportunità aggiuntive:</strong> All'interno del <strong>progetto PNRR STEM</strong> sono previste ulteriori opportunità di erogare corsi di lingua inglese finalizzati alle certificazioni.
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">🗺️ Uscite Didattiche e Viaggi d'Istruzione</h3>
+            
+            <div class="card">
+                <h3><span class="icon">🚌</span> Finalità ed Esperienze Didattiche</h3>
+                <p>L'Istituto propone alle classi <strong>uscite didattiche e viaggi d'istruzione finalizzati ad arricchire i contenuti previsti dai piani di studio</strong>.</p>
+                
+                <div class="grid" style="margin-top: 20px;">
+                    <div style="background: #f1f8e9; padding: 20px; border-radius: 12px;">
+                        <strong style="color: #558b2f;">🏭 Settore Agro-Alimentare</strong>
+                        <p style="margin-top: 10px;">
+                        • Uscite in luoghi/siti di produzione agro-alimentare<br>
+                        • Siti legati alle tradizioni di singoli territori<br>
+                        • Strutture a vocazione sperimentale<br>
+                        • Partecipazione a fiere ed eventi del settore</p>
+                    </div>
+                    
+                    <div style="background: #e0f2f1; padding: 20px; border-radius: 12px;">
+                        <strong style="color: #00695c;">🌳 Tutela Ambientale e Paesaggistica</strong>
+                        <p style="margin-top: 10px;">
+                        • Uscite legate a tematiche della tutela ambientale<br>
+                        • Siti di interesse paesaggistico<br>
+                        • Parchi e aree protette<br>
+                        • Progetti di sostenibilità ambientale</p>
+                    </div>
+                    
+                    <div style="background: #fce4ec; padding: 20px; border-radius: 12px;">
+                        <strong style="color: #c2185b;">🏛️ Arte, Cultura e Cittadinanza</strong>
+                        <p style="margin-top: 10px;">
+                        • Consapevole fruizione dei siti d'arte<br>
+                        • Conoscenza di differenti culture e sviluppo storico<br>
+                        • Visite guidate a musei e siti culturali<br>
+                        • Percorsi di cittadinanza e costituzione</p>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; padding: 15px; background: #fff3e0; border-radius: 10px;">
+                <strong>📋 Approvazione e coerenza:</strong> Il Collegio dei Docenti, nella formulazione del piano annuale di tali attività, si fa garante della loro coerenza con le finalità formative promosse dall'Istituto. Il piano è approvato annualmente dal Consiglio d'Istituto.<br><br>
+                <em>Si rimanda al relativo Regolamento disponibile sul sito web per indicazioni più precise.</em>
+                </p>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">7-8</span>
+                    <span class="stat-label">Giorni stage Irlanda</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Anni Progetto UTAH</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Certificazioni linguistiche</span>
+                </div>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- INCLUSIONE -->
+        <div id="inclusione" class="tab-content">
+            <h2 class="section-title">🤝 Inclusione Scolastica</h2>
+            
+            <div class="highlight">
+                <h4>💚 Azioni della scuola per l'inclusione</h4>
+                <p>L'IIS Mendel si impegna concretamente per garantire l'inclusione di tutti gli studenti attraverso percorsi personalizzati e supporto specializzato per studenti con Disturbi Specifici dell'Apprendimento (DSA), Bisogni Educativi Speciali (BES) e Disabilità (DVA).</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">📚 Disturbi Specifici dell'Apprendimento e Bisogni Educativi Speciali</h3>
+            
+            <div class="card">
+                <h3><span class="icon">📋</span> Piano Didattico Personalizzato (PDP)</h3>
+                <p>Nel rispetto della normativa, per gli studenti con certificazione DSA il <strong>Consiglio di Classe redige il Piano Didattico Personalizzato</strong>, dopo un periodo di osservazione, e lo condivide con la famiglia e con lo studente.</p>
+                <p style="margin-top: 10px;">Si segue la medesima procedura per gli studenti BES, <strong>anche in mancanza di certificazione</strong>.</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🎯 La Funzione Strumentale DSA/BES</h3>
+            <p style="margin-bottom: 20px;">All'interno dell'Istituto la funzione strumentale competente si occupa di:</p>
+            
+            <div class="grid">
+                <div class="card" style="background: #e8f5e9;">
+                    <h3 style="color: #2e7d32;"><span class="icon" style="background: #2e7d32;">📁</span> Organizzare e Gestire i Documenti</h3>
+                    <ul>
+                        <li>Analizzare le certificazioni in ingresso</li>
+                        <li>Gestire l'archivio cartaceo e digitale delle certificazioni e dei PDP</li>
+                        <li>Rendere accessibili ai docenti le documentazioni nel rispetto della privacy</li>
+                        <li>Stendere procedure di elaborazione e attuazione PDP</li>
+                        <li>Gestire il monitoraggio intermedio</li>
+                    </ul>
+                </div>
+                
+                <div class="card" style="background: #e3f2fd;">
+                    <h3 style="color: #1565c0;"><span class="icon" style="background: #1565c0;">🤝</span> Supportare i Colleghi</h3>
+                    <ul>
+                        <li>Analisi delle certificazioni</li>
+                        <li>Stesura dei PDP</li>
+                        <li>Gestione casi problematici</li>
+                        <li>Analisi della normativa dell'area DSA/BES</li>
+                        <li>Affiancamento nei colloqui con le famiglie (su richiesta)</li>
+                        <li>Accoglienza dei nuovi docenti</li>
+                        <li>Promozione attività di aggiornamento</li>
+                        <li>Rilevazione e diffusione buone prassi</li>
+                        <li>Rilevazione esigenze di materiali didattici specifici</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card" style="background: #fff3e0;">
+                    <h3 style="color: #ef6c00;"><span class="icon" style="background: #ef6c00;">👨‍👩‍👧</span> Curare i Rapporti con le Famiglie</h3>
+                    <ul>
+                        <li>Garantire un canale di comunicazione alle famiglie</li>
+                        <li>Offrire consulenza ai genitori nella fase precedente all'iscrizione</li>
+                        <li>Contattare i genitori degli studenti con DSA di nuova iscrizione</li>
+                        <li>Gestire le criticità nei rapporti scuola-famiglia</li>
+                        <li>Fornire informazioni</li>
+                        <li>Incontrare i genitori in presenza o videoconferenza quando richiesto</li>
+                    </ul>
+                </div>
+                
+                <div class="card" style="background: #fce4ec;">
+                    <h3 style="color: #c2185b;"><span class="icon" style="background: #c2185b;">📝</span> Gestire la Modulistica</h3>
+                    <ul>
+                        <li>Revisione modelli PDP per esigenze rilevate</li>
+                        <li>Fornire altra modulistica necessaria per genitori ed alunni</li>
+                        <li>Modello richiesta registrazione lezioni in classe</li>
+                        <li>Modello delega firma PDP per secondo genitore</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
+                <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">✉️</span> Ulteriori Compiti</h3>
+                <ul style="color: white;">
+                    <li><strong>Gestire le comunicazioni interne ed esterne</strong> per l'area DSA/BES</li>
+                    <li><strong>Collaborare con altre aree/commissioni</strong> dell'Istituto</li>
+                </ul>
+            </div>
+
+            <div class="highlight">
+                <h4>📧 Contatto Area DSA e BES</h4>
+                <p style="font-size: 1.2em;"><strong>Email:</strong> <a href="mailto:referente.dsa@agrariomendel.it" style="color: white; text-decoration: underline;">referente.dsa@agrariomendel.it</a></p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">♿ Disabilità</h3>
+            
+            <div class="card">
+                <h3><span class="icon">🌍</span> Due Tipi di Azioni</h3>
+                <p>Le azioni della scuola per l'inclusione scolastica sono di due tipi:</p>
+                <ul>
+                    <li><strong>Azioni di rete e di territorio</strong></li>
+                    <li><strong>Azioni interne all'Istituto</strong></li>
+                </ul>
+            </div>
+
+            <h4 style="color: #556B2F; margin-top: 25px; font-size: 1.3em;">🔗 Azioni di Rete e di Territorio</h4>
+            
+            <div class="card" style="background: #e8f5e9;">
+                <p>L'Istituto ha all'attivo collaborazioni con:</p>
+                <ul>
+                    <li><strong>Ambito territoriale</strong></li>
+                    <li><strong>Comuni di provenienza degli alunni</strong></li>
+                    <li><strong>Agenzie educative del territorio</strong></li>
+                    <li><strong>Unità di neuropsichiatria di riferimento</strong></li>
+                    <li><strong>Utilizzo della piattaforma Cosmi ICF</strong> per la predisposizione del PEI</li>
+                </ul>
+            </div>
+
+            <h4 style="color: #556B2F; margin-top: 25px; font-size: 1.3em;">🏫 Azioni Interne all'Istituto</h4>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📋</span> a. Elaborazione dei PEI</h3>
+                    <p>Piano Educativo Individualizzato per ogni studente con disabilità</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🎨</span> b. Progetti per l'Inclusione</h3>
+                    <p>Realizzazione dei progetti curriculari ed extracurricolari previsti dal PTOF finalizzati all'inclusione:</p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Progetto autonomia</strong></li>
+                        <li><strong>Progetto serra</strong></li>
+                        <li><strong>Progetto creatività</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🚌</span> c. Uscite Didattiche</h3>
+                    <p>Organizzazione delle uscite didattiche e delle attività proposte ai gruppi classe con particolare attenzione all'inclusione</p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">📚</span> d. Formazione</h3>
+                    <p>Azioni di autoformazione e formazione dei docenti e del personale educativo sull'inclusione</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🎓</span> e. Pre-inserimento e Accoglienza</h3>
+                <p>Attività di pre-inserimento e di accoglienza dei nuovi iscritti per facilitare il passaggio alla scuola superiore</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">37</span>
+                    <span class="stat-label">Cattedre di sostegno</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">22</span>
+                    <span class="stat-label">Docenti di ruolo</span>
+                </div>
+            </div>
+
+            <div class="card" style="background: #e8f5e9;">
+                <h3 style="color: #556B2F;">📧 Referenti Sostegno Studenti DVA</h3>
+                <p><strong>Prof.sse L'Episcopo Gianna e Sala Federica</strong><br>
+                Email: <a href="mailto:referenti.sostegno@agrariomendel.it" style="color: #556B2F; font-weight: bold;">referenti.sostegno@agrariomendel.it</a></p>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);">
+                <h3 style="color: #e65100;"><span class="icon" style="background: #e65100;">♿</span> Accessibilità</h3>
+                <p>La struttura si è adeguata negli anni per <strong>superare le barriere architettoniche</strong> e garantire l'accessibilità a tutti gli studenti.</p>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);">
+                <h3 style="color: #00695c;"><span class="icon" style="background: #00695c;">📜</span> Novità Normative</h3>
+                <p>Dall'anno scolastico 2023/24 si adottano le <strong>novità normative introdotte dal Decreto Interministeriale 1 agosto 2023 n. 153</strong> con adeguata formazione del personale.</p>
+            </div>
+
+            <div class="highlight">
+                <h4>📄 Piano per l'Inclusione (P.I.)</h4>
+                <p style="font-size: 1.1em;">Per una <strong>completa descrizione delle azioni intraprese dall'Istituto</strong>, consulta il <strong>Piano per l'Inclusione (P.I.)</strong> disponibile sul sito web.</p>
+                <p style="margin-top: 15px;">Il P.I. viene aggiornato annualmente per rispondere alle esigenze specifiche degli studenti e migliorare continuamente i servizi di inclusione.</p>
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="https://agrariomendel.edu.it/servizi/95-pi-piano-per-linclusione" class="btn" target="_blank" style="font-size: 1.1em;">
+                        📋 Consulta il Piano per l'Inclusione
+                    </a>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center; background: linear-gradient(135deg, #6B8E23 0%, #8FBC8F 100%); color: white;">
+                <h3 style="color: white;">💚 La nostra filosofia inclusiva</h3>
+                <p style="font-size: 1.1em; color: white;">L'IIS Mendel crede fermamente che <strong>ogni studente abbia diritto a un'istruzione di qualità</strong> e lavora quotidianamente per creare un ambiente scolastico accogliente, rispettoso delle diversità e capace di valorizzare il potenziale di ciascuno.</p>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- PTOF -->
+        <div id="ptof" class="tab-content">
+            <h2 class="section-title">📖 Il Nostro PTOF</h2>
+            
+            <div class="highlight">
+                <h4>📋 Piano Triennale dell'Offerta Formativa 2025-2028</h4>
+                <p style="font-size: 1.2em;">Il PTOF è il documento fondamentale che presenta l'identità culturale e progettuale dell'Istituto Mendel. Contiene tutte le informazioni sull'organizzazione, i progetti, le attività e gli obiettivi della nostra scuola.</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 30px;">🔑 Cosa trovi nel PTOF</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🎯</span> Identità e Mission</h3>
+                    <ul>
+                        <li>Storia dell'Istituto</li>
+                        <li>Valori e finalità educative</li>
+                        <li>Priorità strategiche</li>
+                        <li>Obiettivi formativi</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">📚</span> Offerta Formativa</h3>
+                    <ul>
+                        <li>Tutti gli indirizzi di studio</li>
+                        <li>Quadri orari completi</li>
+                        <li>Metodologie didattiche</li>
+                        <li>Criteri di valutazione</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🎨</span> Progetti e Attività</h3>
+                    <ul>
+                        <li>Progetti curricolari</li>
+                        <li>Attività extracurricolari</li>
+                        <li>Formazione Scuola-Lavoro</li>
+                        <li>Internazionalizzazione</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🤝</span> Inclusione e BES</h3>
+                    <ul>
+                        <li>Piano per l'Inclusione</li>
+                        <li>Protocolli DSA e BES</li>
+                        <li>Supporto agli studenti</li>
+                        <li>Collaborazioni territoriali</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">🔍 Approfondimenti</h3>
+            
+            <div class="card">
+                <ul>
+                    <li><strong>Organizzazione:</strong> Organigramma, commissioni, gruppi di lavoro</li>
+                    <li><strong>Risorse:</strong> Strutture, laboratori, attrezzature, biblioteca</li>
+                    <li><strong>Formazione docenti:</strong> Piano di formazione e aggiornamento</li>
+                    <li><strong>Valutazione:</strong> Sistema di valutazione degli studenti e autovalutazione d'istituto</li>
+                    <li><strong>Rapporti scuola-famiglia:</strong> Modalità di comunicazione e partecipazione</li>
+                    <li><strong>Orientamento:</strong> In entrata, in itinere e in uscita</li>
+                    <li><strong>Sicurezza:</strong> Protocolli di sicurezza e piano di emergenza</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin: 50px 0;">
+                <h3 style="color: #6B8E23; margin-bottom: 20px;">📥 Scarica il PTOF Completo</h3>
+                <p style="font-size: 1.1em; margin-bottom: 30px; color: #666;">Consulta il documento completo per conoscere tutti i dettagli della nostra offerta formativa</p>
+                <a href="https://agrariomendel.edu.it/servizi/203-ptof-piano-offerta-triennale-2025-2028" class="btn" target="_blank" style="font-size: 1.2em; padding: 20px 40px;">
+                    📄 Vai al PTOF 2025-2028
+                </a>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
+                <h3 style="color: #2e7d32;">💡 Partecipa alla vita della scuola!</h3>
+                <p style="font-size: 1.1em;">Il PTOF è un documento dinamico che si arricchisce dei contributi di tutta la comunità scolastica: studenti, famiglie, docenti e personale. Le vostre idee e suggerimenti sono sempre benvenuti!</p>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+        <!-- CONTATTI -->
+        <div id="contatti" class="tab-content">
+            <h2 class="section-title">📞 Contatti e Informazioni</h2>
+            
+            <div class="highlight">
+                <h4>🏢 IIS Gregorio Mendel</h4>
+                <p style="font-size: 1.2em;">Via Ferrazzi, 15 - 20020 Villa Cortese (MI)</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <strong>📞 Telefono</strong>
+                    0331 434311
+                </div>
+                
+                <div class="contact-item">
+                    <strong>✉️ Email</strong>
+                    info@agrariomendel.it
+                </div>
+                
+                <div class="contact-item">
+                    <strong>🌐 Sito Web</strong>
+                    <a href="https://agrariomendel.edu.it/" target="_blank" style="color: #6B8E23;">agrariomendel.edu.it</a>
+                </div>
+                
+                <div class="contact-item">
+                    <strong>🏫 Codice Meccanografico</strong>
+                    MIIS08300X
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">📱 Seguici sui Social Media</h3>
+            
+            <div class="grid">
+                <div class="card" style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); color: white;">
+                    <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">📺</span> YouTube</h3>
+                    <p>Scopri i nostri video, le attività della scuola, i laboratori e i progetti dei nostri studenti!</p>
+                    <a href="https://agrariomendel.edu.it/comunicati/1619-canale-youtube-delliis-mendel" target="_blank" class="btn" style="background: white; color: #CC0000; margin-top: 15px;">
+                        🎥 Visita il canale YouTube
+                    </a>
+                </div>
+                
+                <div class="card" style="background: linear-gradient(135deg, #E1306C 0%, #C13584 100%); color: white;">
+                    <h3 style="color: white;"><span class="icon" style="background: rgba(255,255,255,0.3);">📸</span> Instagram</h3>
+                    <p>Segui le nostre storie quotidiane, le foto delle attività e rimani aggiornato sugli eventi!</p>
+                    <a href="https://agrariomendel.edu.it/comunicati/740-canale-instagram-iis-mendel" target="_blank" class="btn" style="background: white; color: #C13584; margin-top: 15px;">
+                        📷 Seguici su Instagram
+                    </a>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>💬 Resta connesso con noi!</h4>
+                <p>Attraverso i nostri canali social potrai vedere in tempo reale cosa succede all'Istituto Mendel: eventi, progetti, successi dei nostri studenti, open day e molto altro. Non perdere l'occasione di far parte della nostra community!</p>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">👥 Referenti per area</h3>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📚</span> Istituto Tecnico</h3>
+                    <p><strong>Prof.ssa Ronzello Giuliana</strong><br>
+                    <a href="mailto:ronzello.giu@agrariomendel.it">ronzello.giu@agrariomendel.it</a></p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🔧</span> Professionale IEFP</h3>
+                    <p><strong>Prof. Donnarumma Pasquale</strong><br>
+                    <a href="mailto:donnarumma.pas@agrariomendel.it">donnarumma.pas@agrariomendel.it</a></p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🌙</span> Corsi IDA</h3>
+                    <p><strong>Prof. Albè Franco</strong><br>
+                    <a href="mailto:ida@agrariomendel.it">ida@agrariomendel.it</a></p>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="icon">🧭</span> Orientamento</h3>
+                    <p><strong>Prof.ssa De Cecco, Prof. Natoli, Prof.ssa Zanzottera</strong><br>
+                    <a href="mailto:orientamento@agrariomendel.it">orientamento@agrariomendel.it</a></p>
+                </div>
+            </div>
+
+            <h3 style="color: #6B8E23; margin-top: 40px;">🚌 Come raggiungerci</h3>
+            
+            <div class="card">
+                <h3><span class="icon">🚍</span> Autobus</h3>
+                <ul style="columns: 2; column-gap: 30px;">
+                    <li>Z643 - Vittuone/Arluno/Ossona/Parabiago/Villa Cortese</li>
+                    <li>Z627 - Castano P./Busto Garolfo/Legnano</li>
+                    <li>Z625 - Busto Garolfo/Dairago/Busto Arsizio</li>
+                    <li>Z642 - Magenta/Corbetta/Busto G./Legnano</li>
+                    <li>Z644 - Arconate/Dairago/Villa Cortese/Busto G./Parabiago</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🚆</span> Treno</h3>
+                <ul>
+                    <li>Trenord S5</li>
+                    <li>Trenord S6</li>
+                    <li>Regionale Varese-Treviglio</li>
+                    <li>Regionale Rho-Novara</li>
+                    <li>Regionale Como-Milano</li>
+                </ul>
+            </div>
+
+            <div class="highlight" style="margin-top: 40px; text-align: center;">
+                <h3>📅 Orario delle lezioni</h3>
+                <p style="font-size: 1.3em; margin: 15px 0;"><strong>Inizio lezioni: 8:30</strong></p>
+                <p><strong>Classi Prime:</strong> 33 ore settimanali<br>
+                <strong>Classi Seconde, Terze, Quarte e Quinte:</strong> 32 ore settimanali</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://agrariomendel.edu.it/" class="btn" target="_blank">🌐 Visita il sito ufficiale</a>
+                <a href="mailto:orientamento@agrariomendel.it" class="btn">✉️ Contatta orientamento</a>
+                <a href="https://agrariomendel.edu.it/servizi/203-ptof-piano-offerta-triennale-2025-2028" class="btn" target="_blank">📖 Scarica il PTOF</a>
+            </div>
+
+            <div class="footer-credit">
+                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Nascondi tutti i contenuti
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Rimuovi active da tutti i tab
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostra il contenuto selezionato
+            document.getElementById(tabName).classList.add('active');
+            
+            // Aggiungi active al tab selezionato
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
