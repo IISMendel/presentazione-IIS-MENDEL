@@ -252,12 +252,10 @@
             z-index: 1;
         }
         
-        .card h3 .icon {
-            color: inherit;
-            flex-shrink: 0;
-        }
+        /* Rimosso .card h3 .icon */
 
         .icon {
+            /* Rimosso color: #000; e riportato allo stato originale con initial. */
             width: 50px;
             height: 50px;
             background: white;
@@ -271,6 +269,15 @@
             border: 3px solid #11998e;
             color: initial;
         }
+        
+        /* Regola aggiunta per nascondere il testo dell'icona (l'emoji) ma mantenere il contenitore */
+        .card h3 .icon {
+            /* Per gli h3, il colore rimane invisibile per via del font-fill */
+            color: transparent; 
+            /* Se si usa questo codice, le emoji rimangono invisibili (come chiesto) ma gli elementi 
+               HTML 'icon' devono contenere testo visibile (ad esempio un <i>) se volessi rimettere un'icona */
+        }
+
 
         @keyframes iconBounce {
             0%, 100% { transform: translateY(0); }
@@ -607,24 +614,23 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌿 IIS Gregorio Mendel</h1>
+            <h1>IIS Gregorio Mendel</h1>
             <p>Istituto di Istruzione Superiore - Villa Cortese (MI)</p>
         </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="showTab('home')">🏠 Home</button>
-            <button class="tab" onclick="showTab('tecnico')">📚 Istituto Tecnico</button>
-            <button class="tab" onclick="showTab('professionale')">👷 Professionale</button>
-            <button class="tab" onclick="showTab('ida')">🌙 Corsi Serali</button>
-            <button class="tab" onclick="showTab('pcto')">💼 Scuola-Lavoro</button>
-            <button class="tab" onclick="showTab('progetti')">🎨 Progetti</button>
-            <button class="tab" onclick="showTab('internazionalizzazione')">🌍 Internazionalizzazione</button>
-            <button class="tab" onclick="showTab('inclusione')">🤝 Inclusione</button>
-            <button class="tab" onclick="showTab('ptof')">📖 PTOF</button>
-            <button class="tab" onclick="showTab('contatti')">📞 Contatti</button>
+            <button class="tab active" onclick="showTab('home')">Home</button>
+            <button class="tab" onclick="showTab('tecnico')">Istituto Tecnico</button>
+            <button class="tab" onclick="showTab('professionale')">Professionale</button>
+            <button class="tab" onclick="showTab('ida')">Corsi Serali</button>
+            <button class="tab" onclick="showTab('pcto')">Scuola-Lavoro</button>
+            <button class="tab" onclick="showTab('progetti')">Progetti</button>
+            <button class="tab" onclick="showTab('internazionalizzazione')">Internazionalizzazione</button>
+            <button class="tab" onclick="showTab('inclusione')">Inclusione</button>
+            <button class="tab" onclick="showTab('ptof')">PTOF</button>
+            <button class="tab" onclick="showTab('contatti')">Contatti</button>
         </div>
 
-        <!-- HOME -->
         <div id="home" class="tab-content active">
             <h2 class="section-title">Benvenuti al Mendel!</h2>
             
@@ -655,15 +661,15 @@
             <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🎯 La nostra offerta formativa</h3>
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">📘</span> Istituto Tecnico</h3>
+                    <h3>Istituto Tecnico</h3>
                     <p>Diploma di Perito Agrario con specializzazioni in Gestione Ambiente e Territorio (GAT) o Produzioni e Trasformazioni (PT)</p>
                 </div>
                 <div class="card">
-                    <h3><span class="icon">🔧</span> Formazione Professionale</h3>
+                    <h3>Formazione Professionale</h3>
                     <p>Qualifica di Operatore Agricolo e Diploma di Tecnico Agricolo (IEFP Regionale)</p>
                 </div>
                 <div class="card">
-                    <h3><span class="icon">🌙</span> Corsi Serali (IDA)</h3>
+                    <h3>Corsi Serali (IDA)</h3>
                     <p>Percorsi per adulti e lavoratori, tecnici e professionali</p>
                 </div>
             </div>
@@ -688,9 +694,8 @@
             </div>
         </div>
 
-        <!-- ISTITUTO TECNICO -->
         <div id="tecnico" class="tab-content">
-            <h2 class="section-title">📚 Istituto Tecnico Agrario</h2>
+            <h2 class="section-title">Istituto Tecnico Agrario</h2>
             
             <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/112-istituto-tecnico" class="btn" target="_blank">
@@ -707,7 +712,7 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🌍</span> GAT - Gestione Ambiente e Territorio</h3>
+                    <h3>GAT - Gestione Ambiente e Territorio</h3>
                     <ul>
                         <li>Diverse tipologie di agricoltura</li>
                         <li>Conservazione e tutela del territorio</li>
@@ -718,7 +723,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🏭</span> PT - Produzioni e Trasformazioni</h3>
+                    <h3>PT - Produzioni e Trasformazioni</h3>
                     <ul>
                         <li>Tecniche produttive tradizionali e innovative</li>
                         <li>Organizzazione del mercato agricolo</li>
@@ -758,9 +763,8 @@
             </div>
         </div>
 
-        <!-- PROFESSIONALE -->
         <div id="professionale" class="tab-content">
-            <h2 class="section-title">👷 Professionale Statale e Istruzione e Formazione Professionale (IEFP)</h2>
+            <h2 class="section-title">Professionale Statale e Istruzione e Formazione Professionale (IEFP)</h2>
             
             <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/113-istituto-professionale" class="btn" target="_blank">
@@ -777,7 +781,7 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">1️⃣</span> Triennio (I-II-III anno)</h3>
+                    <h3>Triennio (I-II-III anno)</h3>
                     <p><strong>Titolo conseguito:</strong> Qualifica di OPERATORE AGRICOLO</p>
                     <p><strong>Indirizzo:</strong> Coltivazione di piante erbacee, orticole e legnose in pieno campo e in serra</p>
                     <p><strong>Stage:</strong> Minimo 470 ore nel triennio</p>
@@ -785,7 +789,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">4️⃣</span> Quarto Anno</h3>
+                    <h3>Quarto Anno</h3>
                     <p><strong>Titolo conseguito:</strong> Diploma di TECNICO AGRICOLO</p>
                     <p><strong>Indirizzo:</strong> Coltivazione di piante erbacee, orticole e legnose in pieno campo e in serra</p>
                     <p><strong>Stage:</strong> Minimo 210 ore</p>
@@ -830,9 +834,8 @@
             </div>
         </div>
 
-        <!-- IDA -->
         <div id="ida" class="tab-content">
-            <h2 class="section-title">🌙 Corsi Serali - IDA (Istruzione degli Adulti)</h2>
+            <h2 class="section-title">Corsi Serali - IDA (Istruzione degli Adulti)</h2>
             
             <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/114-corsi-serali-ida-istruzione-degli-adulti" class="btn" target="_blank">
@@ -849,7 +852,7 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">📘</span> IDA - Istituto Tecnico</h3>
+                    <h3>IDA - Istituto Tecnico</h3>
                     <p><strong>Attivo:</strong> III, IV, V anno</p>
                     <p><strong>Orario:</strong> 22 ore settimanali (comprensive di 7-6-6-4 ore compresenza)</p>
                     <p><strong>Requisiti:</strong> Aver frequentato almeno una classe del triennio o esami integrativi</p>
@@ -857,7 +860,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🔧</span> IDA - Istruzione Professionale</h3>
+                    <h3>IDA - Istruzione Professionale</h3>
                     <p><strong>Attivo:</strong> I, II, III, IV anno (triennio) + V anno integrativo</p>
                     <p><strong>Indirizzo:</strong> Servizi per l'Agricoltura e lo Sviluppo Rurale</p>
                     <p><strong>Opzione:</strong> Valorizzazione e Commercializzazione dei Prodotti del Territorio</p>
@@ -901,9 +904,8 @@
             </div>
         </div>
 
-        <!-- PCTO -->
         <div id="pcto" class="tab-content">
-            <h2 class="section-title">💼 Formazione Scuola-Lavoro (Ex PCTO)</h2>
+            <h2 class="section-title">Formazione Scuola-Lavoro (Ex PCTO)</h2>
             
             <div class="highlight">
                 <h4>🎯 Esperienza pratica nel mondo del lavoro</h4>
@@ -914,7 +916,7 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">📘</span> Istituto Tecnico</h3>
+                    <h3>Istituto Tecnico</h3>
                     <p><strong>Totale:</strong> 150 ore</p>
                     <ul>
                         <li>120 ore di stage interno (60 ore/anno nel secondo biennio)</li>
@@ -923,7 +925,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🔧</span> IEFP Regionale</h3>
+                    <h3>IEFP Regionale</h3>
                     <p><strong>Triennio:</strong> 470 ore</p>
                     <p><strong>Quarto anno:</strong> 210 ore</p>
                     <ul>
@@ -986,26 +988,25 @@
             </div>
         </div>
 
-        <!-- PROGETTI -->
         <div id="progetti" class="tab-content">
-            <h2 class="section-title">🎨 Progetti d'Istituto A.S. 2024-2025</h2>
+            <h2 class="section-title">Progetti d'Istituto A.S. 2024-2025</h2>
             
             <div class="highlight floating">
                 <h4>🌟 Innovazione e Tradizione</h4>
                 <p>L'Istituto Mendel promuove numerosi progetti didattici ed extracurricolari per arricchire l'offerta formativa e sviluppare competenze trasversali negli studenti. I progetti sono elencati per area tematica.</p>
             </div>
 
-            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">👋 Accoglienza e Orientamento</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">Accoglienza e Orientamento</h3>
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🎒</span> Accoglienza Classi Prime</h3>
+                    <h3>Accoglienza Classi Prime</h3>
                     <p><strong>Destinatari:</strong> Classi 1</p>
                     <p>I primi giorni dell'anno scolastico gli studenti delle classi prime vengono guidati alla conoscenza degli ambienti dell'Istituto, delle sue regole e della sua storia, attraverso attività individuali e di gruppo.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🤝</span> Pre-inserimento</h3>
+                    <h3>Pre-inserimento</h3>
                     <p><strong>Destinatari:</strong> Studenti con disabilità - nuovi iscritti</p>
                     <p>Percorso di 10-12 ore, concordato con la scuola media di provenienza, per accogliere e conoscere i nuovi studenti con disabilità facilitando il loro inserimento.</p>
                 </div>
@@ -1015,31 +1016,31 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🐝</span> APIMANIA</h3>
+                    <h3>APIMANIA</h3>
                     <p><strong>Destinatari:</strong> Classi 3, 4, 5 (max 25 studenti)</p>
                     <p>Progetto "Apicoltura, conoscenze scientifiche e tecniche di allevamento". 12 lezioni frontali da 2 ore + 10 lezioni di esercitazione in campo da 1.5 ore + visita apiario. Da gennaio a luglio in orario extracurricolare.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🌸</span> Officina delle Fragranze</h3>
+                    <h3>Officina delle Fragranze</h3>
                     <p><strong>Destinatari:</strong> Classi 3 e 4</p>
                     <p>Coltivazione piante aromatiche, cure colturali, metodiche estrattive per oli essenziali e prodotti erboristici. Culmina con l'esposizione e vendita prodotti a dicembre. Attività in orario extracurricolare (ottobre-dicembre) e raccolta (giugno-luglio).</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🌺</span> Santuario in Fiore</h3>
+                    <h3>Santuario in Fiore</h3>
                     <p><strong>Destinatari:</strong> Classi 2</p>
                     <p>In collaborazione con Legambiente Parabiago: produzione e vendita piante per valorizzare il Santuario del '500 "Madonna di Dio 'l sa". Manifestazione ai primi di maggio. Attività curriculare ed extracurricolare.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🐛</span> Gelsibachicoltura</h3>
+                    <h3>Gelsibachicoltura</h3>
                     <p><strong>Destinatari:</strong> Classi 5C, 5D, 5E, 4A GAT</p>
                     <p>Riscoperta e valorizzazione della bachicoltura: allevamento bachi da seta, entomologia, patologie, produzione e allestimento bigattiera. Attività curriculari ed extracurricolari. Parte del PNRR-STEM.</p>
                 </div>
 
                 <div class="card">
-                    <h3><span class="icon">🌍</span> Partenariato WWF Lombardia</h3>
+                    <h3>Partenariato WWF Lombardia</h3>
                     <p><strong>Destinatari:</strong> Classi 2</p>
                     <p>Citizen Science WWF: incontri a tema su cambiamento climatico, biodiversità e economia circolare. Max 2 incontri (a scuola e al Parco Ila di Legnano). Sensibilizzazione alle materie STEM, fruibile anche da studenti con BES/disabilità.</p>
                 </div>
@@ -1049,59 +1050,59 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🎨</span> Creatività</h3>
+                    <h3>Creatività</h3>
                     <p><strong>Destinatari:</strong> Studenti con disabilità</p>
                     <p>Attività manipolative per sviluppare competenze pre-lavorative: lavoro cooperativo, abilità fino-motorie, gestione tempi. Realizzazione manufatti in gesso e bigliettini riciclando carta. Orario curricolare + extracurricolare.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🌱</span> Dal Seme... La Vita</h3>
+                    <h3>Dal Seme... La Vita</h3>
                     <p><strong>Destinatari:</strong> Studenti con disabilità</p>
                     <p>Da novembre per tutto l'a.s., attività nella serra: rinvasi, riproduzione piante, semina, trapianto, creazione oggetti con materiali di recupero. Migliora competenze di cura e coltivazione. Orario curriculare.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🎬</span> Cinema Insieme</h3>
+                    <h3>Cinema Insieme</h3>
                     <p><strong>Destinatari:</strong> Studenti con disabilità</p>
                     <p>Film e riflessione per migliorare abilità comunicative, cognitive e socio-emotive. Esplorare emozioni e temi quotidiani, incentivare empatia. Attività post-visione: disegni, scrittura, espressione artistica.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">⚽</span> Finalmente Sport</h3>
+                    <h3>Finalmente Sport</h3>
                     <p><strong>Destinatari:</strong> Studenti con disabilità</p>
                     <p>Pratica sportiva in palestra, 2 ore a settimana per tutto l'anno. Guidati da insegnante di Ed. fisica e insegnante di sostegno/educatore. Promuove attività fisica e benessere.</p>
                 </div>
             </div>
 
-            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">⚽ Sport e Benessere</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">Sport e Benessere</h3>
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🏃</span> Gruppo Sportivo Scolastico</h3>
+                    <h3>Gruppo Sportivo Scolastico</h3>
                     <p><strong>Destinatari:</strong> Classi 1, 2, 3, 4, 5</p>
                     <p>Attività sportiva gratuita in contesto educativo e inclusivo per chi non pratica sport. Allenamenti per tornei e gare studentesche.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🏅</span> Campestre d'Istituto</h3>
+                    <h3>Campestre d'Istituto</h3>
                     <p><strong>Destinatari:</strong> Classi 1, 2, 3, 4, 5</p>
                     <p>Evento tra fine ottobre e inizio novembre al Campo sportivo di Villa Cortese. I migliori classificati partecipano alla fase provinciale. Promuove la pratica sportiva.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🏆</span> Campionati Interni</h3>
+                    <h3>Campionati Interni</h3>
                     <p><strong>Destinatari:</strong> Classi 1, 2, 3, 4, 5</p>
                     <p>Gare sportive organizzate all'interno dell'Istituto per promuovere lo sport e la competizione sana tra studenti.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🏊</span> Acquaticità</h3>
+                    <h3>Acquaticità</h3>
                     <p><strong>Destinatari:</strong> Classi 2</p>
                     <p>9 lezioni da 50' presso la piscina di Busto Garolfo in orario curriculare. Sviluppo competenze motorie acquatiche. Trasporto con mezzi dell'Istituto.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">⚽</span> Scuole a San Siro</h3>
+                    <h3>Scuole a San Siro</h3>
                     <p><strong>Destinatari:</strong> Classi 5</p>
                     <p>Collaborazione con Ufficio scolastico, Inter, Milan e Comune di Milano. Assistere a partite di calcio promuovendo fair-play e rispetto sportivo.</p>
                 </div>
@@ -1111,25 +1112,25 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">❤️</span> CIC - Educazione alla Salute</h3>
+                    <h3>CIC - Educazione alla Salute</h3>
                     <p><strong>Destinatari:</strong> Classi 3 e 5</p>
                     <p>Prevenzione dipendenze e ludopatia, promozione sana alimentazione e sostenibilità, sensibilizzazione dono sangue/midollo, diagnosi precoce malattie ematologiche.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🩸</span> AVIS a Scuola</h3>
+                    <h3>AVIS a Scuola</h3>
                     <p><strong>Destinatari:</strong> Classi 4</p>
                     <p>Incontro di 2 ore con direttore sanitario AVIS Legnano per informare e sensibilizzare sull'importanza della donazione volontaria di sangue. Orario curriculare.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🧠</span> Alzheimer</h3>
+                    <h3>Alzheimer</h3>
                     <p><strong>Destinatari:</strong> Studenti interessati</p>
                     <p>Collaborazione con RSA Villa Cortese per il mese dell'Alzheimer (settembre). Incontro tra generazioni: attività di giardinaggio e floricoltura con residenti con patologia di Alzheimer.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">⚖️</span> Cultura della Legalità</h3>
+                    <h3>Cultura della Legalità</h3>
                     <p><strong>Destinatari:</strong> Tutte le classi</p>
                     <p>Incontri su uso cellulari e social con Carabinieri di Legnano, Polizia Postale e Comune di Villa Cortese. Aperti anche ai genitori.</p>
                 </div>
@@ -1139,25 +1140,25 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">📰</span> Quotidiano in Classe</h3>
+                    <h3>Quotidiano in Classe</h3>
                     <p><strong>Destinatari:</strong> Tutte le classi</p>
                     <p>Possibilità di leggere quotidiani cartacei e/o online consegnati a scuola, con accesso a risorse delle testate giornalistiche.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">📝</span> Poesia</h3>
+                    <h3>Poesia</h3>
                     <p><strong>Destinatari:</strong> Tutti gli studenti</p>
                     <p>Concorso di poesia in collaborazione con Pro Loco Villa Cortese. Premiazione a giugno (a scuola) e settembre (Fiera d'Autunno).</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🎭</span> GIS - Gruppo Interesse Scala</h3>
+                    <h3>GIS - Gruppo Interesse Scala</h3>
                     <p><strong>Destinatari:</strong> Classi 4, 5 (diurno) + 3, 4, 5 (serale)</p>
                     <p>Partecipazione a opera e balletto alla Scala di Milano a prezzo agevolato. Incontri preparatori con esperti. Conoscere ente culturale internazionale e linguaggi espressivi. Orario extracurricolare.</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🏛️</span> Giornate FAI - Apprendisti Ciceroni</h3>
+                    <h3>Giornate FAI - Apprendisti Ciceroni</h3>
                     <p><strong>Destinatari:</strong> Classi 3, 4, 5 (in PCTO)</p>
                     <p>18-23 novembre 2024: studenti preparati da volontari FAI conducono visite guidate per coetanei. Presentazione Progetto MAURICE (recupero acque Canale Villoresi). Certificato FAI per PCTO.</p>
                 </div>
@@ -1173,20 +1174,19 @@
             </div>
         </div>
 
-        <!-- INTERNAZIONALIZZAZIONE -->
         <div id="internazionalizzazione" class="tab-content">
-            <h2 class="section-title">🌍 Internazionalizzazione</h2>
+            <h2 class="section-title">Internazionalizzazione</h2>
             
             <div class="highlight floating">
                 <h4>✈️ Il Mendel aperto al mondo</h4>
                 <p>L'internazionalizzazione è un pilastro fondamentale della nostra offerta formativa. Attraverso stage linguistici, scambi internazionali e certificazioni, apriamo gli orizzonti dei nostri studenti verso una dimensione europea e globale.</p>
             </div>
 
-            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">🇮🇪 Stage Linguistici all'Estero</h3>
+            <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">Stage Linguistici all'Estero</h3>
             
             <div class="grid">
                 <div class="card special-card">
-                    <h3 style="color: white;"><span class="icon">🎓</span> Stage di Lingua Inglese in Irlanda</h3>
+                    <h3 style="color: white;">Stage di Lingua Inglese in Irlanda</h3>
                     <p><strong>Destinazione:</strong> Dublino, Irlanda</p>
                     <p><strong>Durata:</strong> 7-8 giorni</p>
                     <p><strong>Periodo:</strong> Fine settembre / Prima settimana di ottobre</p>
@@ -1201,7 +1201,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🎯</span> Obiettivi dello Stage</h3>
+                    <h3>Obiettivi dello Stage</h3>
                     <ul>
                         <li><strong>Conoscere cultura e stile di vita:</strong> Esperienza diretta di un Paese straniero</li>
                         <li><strong>Ampliare orizzonti culturali:</strong> Crescita personale e interculturale</li>
@@ -1215,7 +1215,7 @@
             <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🇺🇸 Progetto UTAH</h3>
             
             <div class="card special-card">
-                <h3 style="color: white;"><span class="icon">🎓</span> Scambio con Utah State University</h3>
+                <h3 style="color: white;">Scambio con Utah State University</h3>
                 <p style="font-size: 1.1em; margin-bottom: 20px;">Scambio di buone pratiche tra docenti di scienze applicate italiani e americani con l'ateneo <strong>"Utah State University"</strong> di Logan, USA.</p>
                 
                 <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 20px 0;">
@@ -1227,7 +1227,7 @@
 
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🔬</span> Attività Mattutine</h3>
+                    <h3>Attività Mattutine</h3>
                     <ul>
                         <li>Lezioni in compresenza con docenti di STEM nelle classi del triennio</li>
                         <li>Approfondimenti sulle discipline STEM</li>
@@ -1237,7 +1237,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">💼</span> Attività Pomeridiane</h3>
+                    <h3>Attività Pomeridiane</h3>
                     <ul>
                         <li><strong>Lezioni pomeridiane</strong> per insegnanti e studenti</li>
                         <li><strong>Percorsi di orientamento</strong> per studenti delle quarte e quinte sugli studi universitari all'estero</li>
@@ -1262,14 +1262,14 @@
             
             <div class="grid">
                 <div class="card" style="background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%);">
-                    <h3 style="color: #1565c0;"><span class="icon" style="background: #e3f2fd; border-color: #1565c0;">🎓</span> PET - Level B1</h3>
+                    <h3 style="color: #1565c0;">PET - Level B1</h3>
                     <p><strong>Preliminary English Test</strong></p>
                     <p>Livello: <strong>B1 Intermediate</strong></p>
                     <p>Certificazione linguistica riconosciuta a livello internazionale</p>
                 </div>
                 
                 <div class="card" style="background: linear-gradient(135deg, #e8f5e9 0%, #81c784 100%);">
-                    <h3 style="color: #2e7d32;"><span class="icon" style="background: #e8f5e9; border-color: #2e7d32;">🏆</span> FCE - Level B2</h3>
+                    <h3 style="color: #2e7d32;">FCE - Level B2</h3>
                     <p><strong>First Certificate in English</strong></p>
                     <p>Livello: <strong>B2 Upper Intermediate</strong></p>
                     <p>Competenza avanzata nella lingua inglese</p>
@@ -1277,7 +1277,7 @@
             </div>
 
             <div class="card">
-                <h3><span class="icon">📚</span> Corso di Lingua Inglese per il Potenziamento</h3>
+                <h3>📚 Corso di Lingua Inglese per il Potenziamento</h3>
                 <p>L'Istituto propone un <strong>Corso di Lingua Inglese per il potenziamento</strong> che può portare al conseguimento della Certificazione Linguistica PET (livello B1 intermediate) e/o FCE (livello B2 upper intermediate).</p>
                 <ul style="margin-top: 15px;">
                     <li><strong>Destinatari:</strong> Studenti e docenti</li>
@@ -1292,7 +1292,7 @@
             <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🗺️ Uscite Didattiche e Viaggi d'Istruzione</h3>
             
             <div class="card">
-                <h3><span class="icon">🚌</span> Finalità ed Esperienze Didattiche</h3>
+                <h3>🚌 Finalità ed Esperienze Didattiche</h3>
                 <p>L'Istituto propone alle classi <strong>uscite didattiche e viaggi d'istruzione finalizzati ad arricchire i contenuti previsti dai piani di studio</strong>.</p>
                 
                 <div class="grid" style="margin-top: 20px;">
@@ -1350,9 +1350,8 @@
             </div>
         </div>
 
-        <!-- INCLUSIONE -->
         <div id="inclusione" class="tab-content">
-            <h2 class="section-title">🤝 Inclusione Scolastica</h2>
+            <h2 class="section-title">Inclusione Scolastica</h2>
             
             <div class="highlight floating">
                 <h4>💚 Azioni della scuola per l'inclusione</h4>
@@ -1362,7 +1361,7 @@
             <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">📚 DSA e BES</h3>
             
             <div class="card">
-                <h3><span class="icon">📋</span> Piano Didattico Personalizzato (PDP)</h3>
+                <h3>Piano Didattico Personalizzato (PDP)</h3>
                 <p>Per gli studenti con certificazione DSA il Consiglio di Classe redige il Piano Didattico Personalizzato.</p>
             </div>
             
@@ -1376,12 +1375,12 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">📋</span> Elaborazione dei PEI</h3>
+                    <h3>Elaborazione dei PEI</h3>
                     <p>Piano Educativo Individualizzato per ogni studente con disabilità</p>
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🎨</span> Progetti per l'Inclusione</h3>
+                    <h3>Progetti per l'Inclusione</h3>
                     <p>Realizzazione progetti curriculari ed extracurricolari per l'inclusione</p>
                 </div>
             </div>
@@ -1407,9 +1406,8 @@
             </div>
         </div>
 
-        <!-- PTOF -->
         <div id="ptof" class="tab-content">
-            <h2 class="section-title">📖 Il Nostro PTOF</h2>
+            <h2 class="section-title">Il Nostro PTOF</h2>
             
             <div class="highlight floating">
                 <h4>📋 Piano Triennale dell'Offerta Formativa 2025-2028</h4>
@@ -1420,7 +1418,7 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3><span class="icon">🎯</span> Identità e Mission</h3>
+                    <h3>Identità e Mission</h3>
                     <ul>
                         <li>Storia dell'Istituto</li>
                         <li>Valori e finalità educative</li>
@@ -1430,7 +1428,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">📚</span> Offerta Formativa</h3>
+                    <h3>Offerta Formativa</h3>
                     <ul>
                         <li>Tutti gli indirizzi di studio</li>
                         <li>Quadri orari completi</li>
@@ -1440,7 +1438,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🎨</span> Progetti e Attività</h3>
+                    <h3>Progetti e Attività</h3>
                     <ul>
                         <li>Progetti curricolari</li>
                         <li>Attività extracurricolari</li>
@@ -1450,7 +1448,7 @@
                 </div>
                 
                 <div class="card">
-                    <h3><span class="icon">🤝</span> Inclusione e BES</h3>
+                    <h3>Inclusione e BES</h3>
                     <ul>
                         <li>Piano per l'Inclusione</li>
                         <li>Protocolli DSA e BES</li>
@@ -1472,9 +1470,8 @@
             </div>
         </div>
 
-        <!-- CONTATTI -->
         <div id="contatti" class="tab-content">
-            <h2 class="section-title">📞 Contatti e Informazioni</h2>
+            <h2 class="section-title">Contatti e Informazioni</h2>
             
             <div class="highlight floating">
                 <h4>🏢 IIS Gregorio Mendel</h4>
@@ -1507,7 +1504,7 @@
             
             <div class="grid">
                 <div class="card" style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); color: white;">
-                    <h3 style="color: white;"><span class="icon">📺</span> YouTube</h3>
+                    <h3 style="color: white;">YouTube</h3>
                     <p>Scopri i nostri video e le attività della scuola!</p>
                     <a href="https://agrariomendel.edu.it/comunicati/1619-canale-youtube-delliis-mendel" target="_blank" class="btn" style="background: white; color: #CC0000;">
                         <span>🎥 Visita il canale YouTube</span>
@@ -1515,7 +1512,7 @@
                 </div>
                 
                 <div class="card" style="background: linear-gradient(135deg, #E1306C 0%, #C13584 100%); color: white;">
-                    <h3 style="color: white;"><span class="icon">📸</span> Instagram</h3>
+                    <h3 style="color: white;">Instagram</h3>
                     <p>Segui le nostre storie quotidiane!</p>
                     <a href="https://agrariomendel.edu.it/comunicati/740-canale-instagram-iis-mendel" target="_blank" class="btn" style="background: white; color: #C13584;">
                         <span>📷 Seguici su Instagram</span>
