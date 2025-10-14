@@ -152,6 +152,55 @@
             padding-left: 30px;
             font-weight: 900; 
         }
+        
+        /* === NUOVI STILI PER MINI-TABS (ORARI) === */
+        .mini-tabs {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .mini-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #555;
+            border: 1px solid transparent;
+            border-bottom: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            background: #f1f1f1;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin-right: 5px;
+        }
+
+        .mini-tab:hover {
+            color: #11998e;
+            background: #e0f7fa;
+        }
+
+        .mini-tab.active {
+            color: white;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-bottom: 2px solid white; 
+            transform: translateY(2px);
+        }
+
+        .mini-tab-content {
+            display: none;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .mini-tab-content.active {
+            display: block;
+        }
+        /* FINE NUOVI STILI MINI-TABS */
+
 
         /* Card Generica */
         .card {
@@ -420,6 +469,40 @@
             color: #11998e;
             margin-bottom: 5px;
         }
+        
+        /* Stili Tabelle Orarie */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+        
+        .schedule-table td strong {
+            color: #11998e;
+        }
+
 
         /* Media Queries */
         @media (max-width: 768px) {
@@ -455,6 +538,48 @@
             .timeline-item:nth-child(odd) .timeline-content {
                 border-right: none;
                 border-left: 4px solid #38ef7d;
+            }
+            
+            /* Tabelle Orarie su mobile */
+             .schedule-table thead {
+                display: none; /* Nasconde l'header su mobile */
+            }
+
+            .schedule-table, .schedule-table tbody, .schedule-table tr, .schedule-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .schedule-table tr {
+                margin-bottom: 15px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .schedule-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .schedule-table td:before {
+                content: attr(data-label); /* Usa l'attributo data-label per mostrare l'header */
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: 700;
+                color: #333;
+                text-align: left;
+                text-transform: uppercase;
+                font-size: 0.8em;
+            }
+            
+            .schedule-table tr:last-child td:last-child {
+                border-bottom: none;
             }
         }
     </style>
@@ -501,6 +626,66 @@
                 <p>L'Istituto Mendel è la scuola superiore di riferimento per l'Agraria, l'Ambiente e l'Agroindustria del territorio, unendo tradizione, innovazione e opportunità concrete di lavoro e studio.</p>
             </div>
 
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🕰️ Scansione Oraria Giornaliera (Diurno)</h3>
+            <div class="card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #4caf50;">
+                <p style="font-weight: 700; font-size: 1.1em; color: #2e7d32;">
+                    ORARIO INIZIO LEZIONI: 8.30
+                </p>
+                <p style="font-size: 0.9em; margin-top: 10px;">
+                    Totale ore settimanali: Classi Prime = 33 | Classi Seconde, Terze, Quarte e Quinte = 32
+                </p>
+                
+                <table class="schedule-table" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Ora</th>
+                            <th>Fascia Oraria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Ora">Prima ora</td>
+                            <td data-label="Fascia Oraria">8,30-9,20</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Seconda ora</td>
+                            <td data-label="Fascia Oraria">9,20-10,10</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Terza ora</td>
+                            <td data-label="Fascia Oraria">10,10-11.00</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Intervallo</td>
+                            <td data-label="Fascia Oraria">11,00 - 11,15</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Quarta ora</td>
+                            <td data-label="Fascia Oraria">11,15-12,10</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Quinta ora</td>
+                            <td data-label="Fascia Oraria">12,10-13,00</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Sesta ora</td>
+                            <td data-label="Fascia Oraria">13,00-13,50</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Intervallo</td>
+                            <td data-label="Fascia Oraria">13,50-14,00</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Settima ora</td>
+                            <td data-label="Fascia Oraria">14,00-14,50</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Ora">Ottava ora</td>
+                            <td data-label="Fascia Oraria">14,50-15,40</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🎯 La nostra offerta formativa</h3>
             <div class="grid">
                 <div class="card">
@@ -650,7 +835,138 @@
                     </ul>
                 </div>
             </div>
+            
+            <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">📋 Dettaglio Orario Settimanale (Curriculum)</h3>
+            
+            <div class="mini-tabs">
+                <button class="mini-tab active" onclick="showMiniTab('biennio-1')">1° Biennio (1° e 2° Anno)</button>
+                <button class="mini-tab" onclick="showMiniTab('biennio-2-gat')">2° Biennio e 5° Anno (GAT)</button>
+                <button class="mini-tab" onclick="showMiniTab('biennio-2-pt')">2° Biennio e 5° Anno (PT)</button>
+            </div>
 
+            <div id="biennio-1" class="mini-tab-content active">
+                <h4 style="color: #11998e; margin-bottom: 15px;">PRIMO BIENNIO: Insegnamenti Generali e di Indirizzo</h4>
+                <p style="font-size: 0.9em; margin-bottom: 20px;">
+                    Totale ore settimanali: 1° Anno = 33 | 2° Anno = 32.
+                </p>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>DISCIPLINA</th>
+                            <th>1° ANNO (Ore)</th>
+                            <th>2° ANNO (Ore)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="3" style="text-align: center; background: #e0f7fa;"><strong>INSEGNAMENTI GENERALI</strong></td></tr>
+                        <tr><td data-label="DISCIPLINA">Lingua e letteratura italiana</td><td data-label="1° ANNO (Ore)">4</td><td data-label="2° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA">Lingua inglese</td><td data-label="1° ANNO (Ore)">3</td><td data-label="2° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Storia</td><td data-label="1° ANNO (Ore)">2</td><td data-label="2° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Matematica</td><td data-label="1° ANNO (Ore)">4</td><td data-label="2° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA">Diritto ed economia</td><td data-label="1° ANNO (Ore)">2</td><td data-label="2° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Scienze integrate (Biologia e Scienze della terra)</td><td data-label="1° ANNO (Ore)">2</td><td data-label="2° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Geografia</td><td data-label="1° ANNO (Ore)">1</td><td data-label="2° ANNO (Ore)">-</td></tr>
+                        <tr><td data-label="DISCIPLINA">Scienze motorie e sportive</td><td data-label="1° ANNO (Ore)">2</td><td data-label="2° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Religione cattolica o attività alternativa</td><td data-label="1° ANNO (Ore)">1</td><td data-label="2° ANNO (Ore)">1</td></tr>
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700;">TOTALE ORE GENERALI</td><td data-label="1° ANNO (Ore)" style="font-weight: 700;">21</td><td data-label="2° ANNO (Ore)" style="font-weight: 700;">20</td></tr>
+
+                        <tr><td colspan="3" style="text-align: center; background: #e0f7fa;"><strong>MATERIE D'INDIRIZZO</strong></td></tr>
+                        <tr><td data-label="DISCIPLINA">Scienze integrate (Fisica) (di cui 1 in laboratorio)</td><td data-label="1° ANNO (Ore)">3</td><td data-label="2° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Tecnologie informatiche (di cui 2 in laboratorio)</td><td data-label="1° ANNO (Ore)">3</td><td data-label="2° ANNO (Ore)">-</td></tr>
+                        <tr><td data-label="DISCIPLINA">Tecnologie e tecniche di rappresentazioni (di cui 2 in laboratorio)</td><td data-label="1° ANNO (Ore)">3</td><td data-label="2° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Scienze e tecnologie applicate</td><td data-label="1° ANNO (Ore)">-</td><td data-label="2° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700;">TOTALE ORE INDIRIZZO</td><td data-label="1° ANNO (Ore)" style="font-weight: 700;">12</td><td data-label="2° ANNO (Ore)" style="font-weight: 700;">12</td></tr>
+
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700; background: #c8e6c9;">TOTALE ORE SETTIMANALI</td><td data-label="1° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">33</td><td data-label="2° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="biennio-2-gat" class="mini-tab-content">
+                <h4 style="color: #11998e; margin-bottom: 15px;">SECONDO BIENNIO e QUINTO ANNO: Articolazione GESTIONE AMBIENTE E TERRITORIO (GAT)</h4>
+                <div class="card" style="background: #e3f2fd; margin-bottom: 20px;">
+                    <h5 style="color: #1565c0; font-size: 1.2em; margin-bottom: 10px;">Descrizione GAT</h5>
+                    <p>Conoscenza delle diverse tipologie di agricoltura. Conservazione e tutela del territorio attraverso buone pratiche di agricoltura. Studio degli ambienti geografici ecologici e territoriali, e sostenibilità ambientale.</p>
+                    <p style="margin-top: 10px;">Il Quinto Anno mira ad una visione organica delle attività legate all'agricoltura e alla preparazione per l'esame di stato.</p>
+                </div>
+                
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>DISCIPLINA</th>
+                            <th>3° ANNO (Ore)</th>
+                            <th>4° ANNO (Ore)</th>
+                            <th>5° ANNO (Ore)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="4" style="text-align: center; background: #e0f7fa;"><strong>INSEGNAMENTI GENERALI</strong> (Totale 15 ore settimanali)</td></tr>
+                        <tr><td data-label="DISCIPLINA">Italiano</td><td data-label="3° ANNO (Ore)">4</td><td data-label="4° ANNO (Ore)">4</td><td data-label="5° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA">Storia</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Inglese</td><td data-label="3° ANNO (Ore)">3</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Scienze motorie</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Matematica</td><td data-label="3° ANNO (Ore)">3</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Religione</td><td data-label="3° ANNO (Ore)">1</td><td data-label="4° ANNO (Ore)">1</td><td data-label="5° ANNO (Ore)">1</td></tr>
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700;">TOTALE ORE GENERALI</td><td data-label="3° ANNO (Ore)" style="font-weight: 700;">15</td><td data-label="4° ANNO (Ore)" style="font-weight: 700;">15</td><td data-label="5° ANNO (Ore)" style="font-weight: 700;">15</td></tr>
+                        
+                        <tr><td colspan="4" style="text-align: center; background: #e0f7fa;"><strong>MATERIE D'INDIRIZZO</strong> (Totale 17 ore settimanali)</td></tr>
+                        <tr><td data-label="DISCIPLINA">Complementi di matematica</td><td data-label="3° ANNO (Ore)">1</td><td data-label="4° ANNO (Ore)">1</td><td data-label="5° ANNO (Ore)">-</td></tr>
+                        <tr><td data-label="DISCIPLINA">Produzione animale</td><td data-label="3° ANNO (Ore)">3</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Produzioni vegetali</td><td data-label="3° ANNO (Ore)">5</td><td data-label="4° ANNO (Ore)">4</td><td data-label="5° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA">Trasformazione dei prodotti</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Economia, estimo, marketing e legislazione</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Genio rurale</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Biotecnologie agrarie</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">-</td></tr>
+                        <tr><td data-label="DISCIPLINA">Gestione Ambiente e Territorio (GAT)</td><td data-label="3° ANNO (Ore)">-</td><td data-label="4° ANNO (Ore)">-</td><td data-label="5° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700;">TOTALE ORE INDIRIZZO</td><td data-label="3° ANNO (Ore)" style="font-weight: 700;">17</td><td data-label="4° ANNO (Ore)" style="font-weight: 700;">17</td><td data-label="5° ANNO (Ore)" style="font-weight: 700;">17</td></tr>
+                        
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700; background: #c8e6c9;">TOTALE ORE SETTIMANALI</td><td data-label="3° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td><td data-label="4° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td><td data-label="5° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="biennio-2-pt" class="mini-tab-content">
+                <h4 style="color: #11998e; margin-bottom: 15px;">SECONDO BIENNIO e QUINTO ANNO: Articolazione PRODUZIONI E TRASFORMAZIONI (PT)</h4>
+                <div class="card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 5px solid #e65100; margin-bottom: 20px;">
+                    <h5 style="color: #e65100; font-size: 1.2em; margin-bottom: 10px;">Descrizione PT</h5>
+                    <p>Tecniche produttive tradizionali e innovative. Conoscenza e organizzazione del mercato agricolo. Trasformazione dei prodotti agricoli e tutela della qualità delle produzioni agroalimentari. Biotecnologie applicate alla difesa delle colture e alle trasformazioni alimentari.</p>
+                    <p style="margin-top: 10px;">Il Quinto Anno mira ad una visione organica delle attività legate all'agricoltura e alla preparazione per l'esame di stato.</p>
+                </div>
+                
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>DISCIPLINA</th>
+                            <th>3° ANNO (Ore)</th>
+                            <th>4° ANNO (Ore)</th>
+                            <th>5° ANNO (Ore)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="4" style="text-align: center; background: #e0f7fa;"><strong>INSEGNAMENTI GENERALI</strong> (Identici all'Articolazione GAT)</td></tr>
+                        <tr><td data-label="DISCIPLINA">Italiano</td><td data-label="3° ANNO (Ore)">4</td><td data-label="4° ANNO (Ore)">4</td><td data-label="5° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA">Storia</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Inglese</td><td data-label="3° ANNO (Ore)">3</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Scienze motorie</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Matematica</td><td data-label="3° ANNO (Ore)">3</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Religione</td><td data-label="3° ANNO (Ore)">1</td><td data-label="4° ANNO (Ore)">1</td><td data-label="5° ANNO (Ore)">1</td></tr>
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700;">TOTALE ORE GENERALI</td><td data-label="3° ANNO (Ore)" style="font-weight: 700;">15</td><td data-label="4° ANNO (Ore)" style="font-weight: 700;">15</td><td data-label="5° ANNO (Ore)" style="font-weight: 700;">15</td></tr>
+                        
+                        <tr><td colspan="4" style="text-align: center; background: #e0f7fa;"><strong>MATERIE D'INDIRIZZO (PRODUZIONI E TRASFORMAZIONI)</strong></td></tr>
+                        <tr><td data-label="DISCIPLINA">Complementi di matematica</td><td data-label="3° ANNO (Ore)">1</td><td data-label="4° ANNO (Ore)">1</td><td data-label="5° ANNO (Ore)">-</td></tr>
+                        <tr><td data-label="DISCIPLINA">Produzione animale</td><td data-label="3° ANNO (Ore)">3</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Produzioni vegetali</td><td data-label="3° ANNO (Ore)">5</td><td data-label="4° ANNO (Ore)">4</td><td data-label="5° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA">Trasformazione dei prodotti</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Economia, estimo, marketing e legislazione</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">3</td><td data-label="5° ANNO (Ore)">3</td></tr>
+                        <tr><td data-label="DISCIPLINA">Genio rurale</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">2</td></tr>
+                        <tr><td data-label="DISCIPLINA">Biotecnologie agrarie</td><td data-label="3° ANNO (Ore)">2</td><td data-label="4° ANNO (Ore)">2</td><td data-label="5° ANNO (Ore)">-</td></tr>
+                        <tr><td data-label="DISCIPLINA">Produzioni e Trasformazioni (PT)</td><td data-label="3° ANNO (Ore)">-</td><td data-label="4° ANNO (Ore)">-</td><td data-label="5° ANNO (Ore)">4</td></tr>
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700;">TOTALE ORE INDIRIZZO</td><td data-label="3° ANNO (Ore)" style="font-weight: 700;">17</td><td data-label="4° ANNO (Ore)" style="font-weight: 700;">17</td><td data-label="5° ANNO (Ore)" style="font-weight: 700;">17</td></tr>
+                        
+                        <tr><td data-label="DISCIPLINA" style="font-weight: 700; background: #c8e6c9;">TOTALE ORE SETTIMANALI</td><td data-label="3° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td><td data-label="4° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td><td data-label="5° ANNO (Ore)" style="font-weight: 700; background: #c8e6c9;">32</td></tr>
+                    </tbody>
+                </table>
+            </div>
             <h3 style="color: #11998e; margin-top: 40px; font-size: 2em;">💼 Sbocchi professionali</h3>
             <div class="card">
                 <ul style="columns: 2; column-gap: 30px;">
@@ -1511,7 +1827,33 @@
             }
             
             window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            // Per assicurare che la prima mini-tab si attivi all'apertura del tab "tecnico"
+            if (tabName === 'tecnico') {
+                showMiniTab('biennio-1');
+            }
         }
+        
+        function showMiniTab(miniTabName) {
+            const contents = document.querySelectorAll('#tecnico .mini-tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('#tecnico .mini-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(miniTabName).classList.add('active');
+            
+            const activeTabButton = document.querySelector(`.mini-tab[onclick="showMiniTab('${miniTabName}')"]`);
+            if (activeTabButton) {
+                activeTabButton.classList.add('active');
+            }
+        }
+        
+        // Inizializza la prima mini-tab all'avvio
+        document.addEventListener('DOMContentLoaded', () => {
+            // Attiva la prima tab principale
+            showTab('home');
+        });
     </script>
 </body>
 </html>
