@@ -1062,7 +1062,29 @@
                 left: 18px !important;
             }
         }
+
+        /* ===== Tipografia riquadri migliorata ===== */
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        .card h3, .highlight h4, .section-title, .tab-content h3 {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            letter-spacing: -0.02em;
+        }
+        .card h3 { font-size: 1.7em; font-weight: 800; line-height: 1.25; }
+        .card p, .card li, .highlight p {
+            font-size: 1.08em;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+        .card strong, .highlight strong { font-weight: 700; }
+        .card ul { padding-left: 1.2em; }
+        .card li { margin-bottom: 6px; }
+        .card li::marker { color: #11998e; font-weight: 800; }
+        .schedule-table td, .comparison-table td { font-weight: 500; }
+        @media (max-width: 768px) { .card h3 { font-size: 1.4em; } .card p, .card li { font-size: 1em; } }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -1220,7 +1242,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -1406,7 +1428,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -1582,7 +1604,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -1636,7 +1658,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -1699,7 +1721,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
         
@@ -1808,67 +1830,9 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
-    </div>
-
-    <script>
-        function showTab(tabName) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            
-            const activeTabButton = document.querySelector(`.tab[onclick="showTab('${tabName}')"]`);
-            if (activeTabButton) {
-                activeTabButton.classList.add('active');
-            }
-            
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            
-            if (tabName === 'tecnico') {
-                resetToggleButtons();
-                document.getElementById('btn-biennio-1').classList.add('active');
-                document.getElementById('primo-biennio-orari').style.display = 'block';
-            } else {
-                resetToggleButtons();
-            }
-        }
-        
-        function resetToggleButtons() {
-            const allSections = document.querySelectorAll('#tecnico .orari-section');
-            allSections.forEach(sec => sec.style.display = 'none');
-            const allButtons = document.querySelectorAll('.toggle-buttons .toggle-btn');
-            allButtons.forEach(btn => btn.classList.remove('active'));
-        }
-        
-        function toggleTables(tableId, buttonId) {
-            const table = document.getElementById(tableId);
-            const activeBtn = document.getElementById(buttonId);
-            const isCurrentlyActive = activeBtn.classList.contains('active');
-            
-            resetToggleButtons();
-            
-            if (!isCurrentlyActive) {
-                table.style.display = 'block';
-                activeBtn.classList.add('active');
-                table.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            showTab('home');
-        });
-    </script>
-</body>
-</html>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
-            </div>
-        </div>
-        
         <div id="storia" class="tab-content">
             <h2 class="section-title">Breve Storia dell'IIS Mendel</h2>
             <div class="highlight floating">
@@ -1915,7 +1879,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -2202,7 +2166,7 @@
             <p style="text-align: center; margin-top: 10px;"><em>Tutte le facoltà sono aperte: questi sono i corsi più vicini a ciò che si studia al Mendel.</em></p>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -2296,7 +2260,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -2366,7 +2330,7 @@
             </div>
 
             <div class="footer-credit">
-                <p>Questa pagina è stata creata dall'IIS MENDEL - Villa Cortese (MI)</p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
             </div>
         </div>
 
@@ -2451,4 +2415,62 @@
             </div>
 
             <div class="footer-credit">
-                <p>
+                <p>Pagina creata dal Team Digitale per l'IIS MENDEL - Via Ferrazzi 15, 20035 - Villa Cortese (MI)</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            
+            const activeTabButton = document.querySelector(`.tab[onclick="showTab('${tabName}')"]`);
+            if (activeTabButton) {
+                activeTabButton.classList.add('active');
+            }
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            if (tabName === 'tecnico') {
+                resetToggleButtons();
+                document.getElementById('btn-biennio-1').classList.add('active');
+                document.getElementById('primo-biennio-orari').style.display = 'block';
+            } else {
+                resetToggleButtons();
+            }
+        }
+        
+        function resetToggleButtons() {
+            const allSections = document.querySelectorAll('#tecnico .orari-section');
+            allSections.forEach(sec => sec.style.display = 'none');
+            const allButtons = document.querySelectorAll('.toggle-buttons .toggle-btn');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+        }
+        
+        function toggleTables(tableId, buttonId) {
+            const table = document.getElementById(tableId);
+            const activeBtn = document.getElementById(buttonId);
+            const isCurrentlyActive = activeBtn.classList.contains('active');
+            
+            resetToggleButtons();
+            
+            if (!isCurrentlyActive) {
+                table.style.display = 'block';
+                activeBtn.classList.add('active');
+                table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('home');
+        });
+    </script>
+</body>
+</html>
