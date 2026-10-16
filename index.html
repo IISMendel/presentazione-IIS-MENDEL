@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Day IIS Gregorio Mendel - Villa Cortese</title>
+    <title>Open Day Liceo tecnologico G. Mendel - Villa Cortese</title>
     <style>
         /* Stili Base */
         * {
@@ -1081,6 +1081,17 @@
         .card li::marker { color: #11998e; font-weight: 800; }
         .schedule-table td, .comparison-table td { font-weight: 500; }
         @media (max-width: 768px) { .card h3 { font-size: 1.4em; } .card p, .card li { font-size: 1em; } }
+    
+        .newname{position:relative;z-index:2;max-width:760px;margin:26px auto 0;padding:20px 22px;background:rgba(255,255,255,.96);border:3px solid #ffd700;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.25);text-align:center;color:#1a1a1a}
+        .newname div{color:inherit}
+        .newname .nn-top{font-size:.95em;letter-spacing:2px;font-weight:700;color:#1b5e20}
+        .newname .nn-old{margin:10px 0 2px;font-size:1.15em;color:#777;text-decoration:line-through;text-decoration-color:#c62828;text-decoration-thickness:3px}
+        .newname .nn-tag{display:inline-block;margin:8px 0;padding:5px 14px;background:#2e7d32;color:#fff;border-radius:20px;font-size:.85em;font-weight:700;letter-spacing:1.5px}
+        .newname .nn-new{font-size:1.9em;font-weight:800;color:#1b5e20;line-height:1.15}
+        .newname .nn-sub{font-size:1.15em;font-weight:600;color:#2e7d32;margin-top:4px}
+        .newname .nn-g{font-size:1.5em;font-weight:800;color:#1b5e20;margin-top:2px}
+        .newname .nn-claim{margin-top:12px;font-style:italic;color:#333}
+        @media(max-width:600px){.newname .nn-new{font-size:1.5em}.newname{margin:16px 0 0}}
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1091,13 +1102,22 @@
         <div class="header">
             <h1>IIS Gregorio Mendel</h1>
             <p>Benvenuti al nostro Open Day! Scoprite il futuro dell'Agraria e dell'Ambiente a Villa Cortese (MI)</p>
+            <div class="newname">
+                <div class="nn-top">IIS GREGORIO MENDEL · VILLA CORTESE (MI)</div>
+                <div class="nn-old">Istituto Tecnico Agrario</div>
+                <div class="nn-tag">CON LA RIFORMA · NUOVA DENOMINAZIONE</div>
+                <div class="nn-new">Liceo tecnologico</div>
+                <div class="nn-sub">per l'agraria, l'agroalimentare e l'agroindustria</div>
+                <div class="nn-g">G. Mendel</div>
+                <div class="nn-claim">Open Day · Coltiva il tuo futuro.</div>
+            </div>
         </div>
 
         <div class="tabs">
             <button class="tab active" onclick="showTab('home')">Home</button>
             <button class="tab" onclick="showTab('storia')">Storia dell'Istituto</button>
-            <button class="tab" onclick="showTab('tecnico')">Istituto Tecnico</button>
-            <button class="tab" onclick="showTab('professionale')">Professionale</button>
+            <button class="tab" onclick="showTab('tecnico')">Liceo tecnologico</button>
+            <button class="tab" onclick="showTab('professionale')">Liceo professionale</button>
             <button class="tab" onclick="showTab('ida')">Corsi Serali</button>
             <button class="tab" onclick="showTab('pcto')">Scuola-Lavoro</button>
             <button class="tab" onclick="showTab('progetti')">Progetti</button>
@@ -1111,7 +1131,7 @@
             <h2 class="section-title">Benvenuti al Mendel!</h2>
             
             <div class="openday-highlight">
-                <h4>Benvenuti all'IIS Mendel!</h4>
+                <h4>Benvenuti al Liceo tecnologico G. Mendel!</h4>
                 <p>Scoprite le eccellenze del nostro Istituto! Siamo qui per rispondere a tutte le vostre domande e guidarvi nella scelta del vostro futuro.</p>
                 <div class="openday-buttons">
                     <a href="https://agrariomendel.edu.it/servizi/percorsi-di-studio" class="btn" target="_blank" style="background: white; color: #FF512F;">
@@ -1189,11 +1209,11 @@
             <h3 style="color: #11998e; margin-top: 50px; font-size: 2em;">🎯 La nostra offerta formativa</h3>
             <div class="grid">
                 <div class="card">
-                    <h3>Istituto Tecnico</h3>
+                    <h3>Liceo tecnologico (ex Istituto Tecnico Agrario)</h3>
                     <p>Diploma di Perito Agrario con specializzazioni in Gestione Ambiente e Territorio (GAT) o Produzioni e Trasformazioni (PT)</p>
                 </div>
                 <div class="card">
-                    <h3>Professionale Statale</h3>
+                    <h3>Liceo professionale (ex Professionale Statale)</h3>
                     <p>Indirizzo: Agricoltura, sviluppo rurale, valorizzazione dei prodotti e del territorio e gestione delle risorse forestali e montane</p>
                 </div>
                 <div class="card">
@@ -1884,11 +1904,11 @@
         </div>
 
         <div id="tecnico" class="tab-content">
-            <h2 class="section-title">Istituto Tecnico Agrario</h2>
+            <h2 class="section-title">Liceo tecnologico per l'agraria, l'agroalimentare e l'agroindustria "G. Mendel" <small style="font-size:.6em;display:block;font-weight:400;">(ex Istituto Tecnico Agrario)</small></h2>
             
             <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/112-istituto-tecnico" class="btn" target="_blank">
-                    <span>🌐 Visita la pagina ufficiale dell'Istituto Tecnico</span>
+                    <span>🌐 Visita la pagina ufficiale del Liceo tecnologico</span>
                 </a>
             </div>
             
@@ -2171,11 +2191,11 @@
         </div>
 
         <div id="professionale" class="tab-content">
-            <h2 class="section-title">Professionale Statale e Istruzione e Formazione Professionale (IEFP)</h2>
+            <h2 class="section-title">Liceo professionale "G. Mendel" (ex Professionale Statale) e Istruzione e Formazione Professionale (IEFP)</h2>
             
             <div style="text-align: center; margin-bottom: 40px;">
                 <a href="https://agrariomendel.edu.it/la-scuola/organizzazione/113-istituto-professionale" class="btn" target="_blank">
-                    <span>🌐 Visita la pagina ufficiale dell'Istituto Professionale</span>
+                    <span>🌐 Visita la pagina ufficiale del Liceo professionale</span>
                 </a>
             </div>
             
@@ -2347,7 +2367,7 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3>Istituto Tecnico</h3>
+                    <h3>Liceo tecnologico</h3>
                     <p><strong>Totale:</strong> 150 ore</p>
                     <ul>
                         <li>120 ore di stage interno (60 ore/anno nel secondo biennio)</li>
